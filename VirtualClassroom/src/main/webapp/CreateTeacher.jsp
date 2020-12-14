@@ -488,6 +488,97 @@ String author;int ii;String title; %>
     				
     				<!-- view_file.jsp?id="<%//out.println(i);%> -->
 						
+		<div class=" card-body child-comments "  id="accordionExample"> 				
+						<!-- show last comment -->
+		<%
+			String sql9 = "SELECT * FROM upload_comment WHERE msg_id=? ORDER BY id DESC LIMIT 1";
+				
+			try {
+			
+			Connection co9= dbconn.Connection();
+			
+			PreparedStatement s9=co9.prepareStatement(sql9);
+			
+			s9.setInt(1, i);
+			  
+			ResultSet r9=s9.executeQuery();
+			    
+		
+
+%>
+	
+<%
+			if (r9.isBeforeFirst()) {
+		%>
+
+		<div>
+			<%
+				
+			%>
+		</div>
+<%} %>
+
+		
+				
+	
+		<%
+					
+		//child_row_count=0;
+		while (r9.next()) {
+			System.out.println(r9.getString("reply_author"));
+		
+		%>
+						
+		<div class="child multi-collapse "> 
+								
+    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+    								<span class="text-left">
+    			
+    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=r9.getString("reply_author")%> &nbsp<%out.println(r9.getDate("date_cmnt").toLocaleString().subSequence(0, 7)); %></div>
+    								<div  style="line-height:35px;margin-left:45px;"><%out.println(r9.getString("comment")); %>   </div>
+    								</span>
+    								
+    							</div>		
+						
+						
+		<%
+			
+		}
+			}catch (Exception e) {
+		e.printStackTrace();
+		}
+		%>	
+
+							
+						
+						
+						
+						<!-- end last comment -->
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						
 						
 				<%!int child_row_count; %>		
@@ -531,7 +622,7 @@ String author;int ii;String title; %>
 			//}else{
 			%>
 			
-					<div class=" card-body child-comments "  id="accordionExample"> 
+				
 					<%
 					//r1.afterLast();
 		    		//System.out.println(r1.getString("comment"));
@@ -542,10 +633,21 @@ String author;int ii;String title; %>
 						 //dt=r1.getDate("date_cmnt").toLocaleString();
 						%>
 						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 					
 					<!-- reply-list -->
 								
-								<div class="child  collapse in" id="collapse-<%=i%>"  aria-labelledby="heading-<%=i%>" data-parent="#accordionExample"> 
+								<div class="child multi-collapse collapse in" id="collapse-<%=i%>"  aria-labelledby="heading-<%=i%>" data-parent="#accordionExample"> 
 								
     								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
     								<span class="text-left">

@@ -315,6 +315,7 @@ position: sticky;
 		</div>
 					<!-- first column student list -->		
 			<div class="col-4 pt-3 border-bottom border-top">
+			<form action="AssignmentMarksServlet" method="post">
 			<input type="text" class="form-control" name="marks"  id="exampleInputEmail1<%=r9.getString("id")%>" aria-describedby="emailHelp">
 		<div class="form-group">
     
@@ -322,6 +323,7 @@ position: sticky;
     		<input type="hidden" class="form-control" name="studentNameAssigned" value="<%=r9.getString("author") %>" id="exampleInputEmail1" aria-describedby="emailHelp">
    
   		</div>
+  		</form>
 		</div>
 					
 				
@@ -734,7 +736,7 @@ position: sticky;
 	</div>
 	
 	
-	</form>
+	
 	
 	
 	

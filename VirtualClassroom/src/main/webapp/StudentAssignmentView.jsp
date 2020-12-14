@@ -257,6 +257,92 @@
        					
        					
        					
+       					
+       					
+       					
+       					<div class=" card-body child-comments "  id="accordionExample"> 				
+						<!-- show last comment -->
+		<%
+			String sql9 = "SELECT * FROM student_assignment_reply WHERE assign_classcode=? and assign_id=? ORDER BY id DESC LIMIT 1";
+				
+			try {
+			
+			Connection co9= dbconn.Connection();
+			
+			PreparedStatement s9=co9.prepareStatement(sql9);
+			
+			s9.setString(1, code);
+			s9.setString(2, id);
+			  
+			ResultSet r9=s9.executeQuery();
+			    
+		
+
+%>
+	
+<%
+			if (r9.isBeforeFirst()) {
+		%>
+
+		<div>
+			<%
+				
+			%>
+		</div>
+<%} %>
+
+		
+				
+	
+		<%
+					
+		//child_row_count=0;
+		while (r9.next()) {
+			System.out.println(r9.getString("author"));
+		
+		%>
+		
+       	 				
+       	 				
+						
+		<div class="child multi-collapse "> 
+								
+    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+    								<span class="text-left">
+    			
+    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=r9.getString("author")%> &nbsp<%out.println(r9.getDate("date").toLocaleString().subSequence(0, 7)); %></div>
+    								<div  style="line-height:35px;margin-left:45px;"><%out.println(r9.getString("asign_comment")); %>   </div>
+    								</span>
+    		
+    								
+    							</div>		
+						
+					
+		<%
+			
+		}
+			}catch (Exception e) {
+		e.printStackTrace();
+		}
+		%>	
+
+							
+						
+						
+						
+						<!-- end last comment -->
+       					
+       					
+       					
+       					
+       					
+       					
+       					
+       					
+       					
+       					
+       					
+       					
        					<!-- start -->
 <%! int count;%>       							
 					<!-- assignment comment-->

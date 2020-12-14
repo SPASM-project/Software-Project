@@ -51,7 +51,7 @@
 %>
 
 <!-- declaration.... -->
-<%!int totalStudent;//int i; String com;String dt;%>
+<%!int totalStudent;String title;//int i; String com;String dt;%>
 
 	
 		<%
@@ -253,7 +253,7 @@
 			
 				while (rs.next()) {
 		%>		<%String id=rs.getString("id") ;
-		
+		title=rs.getString("title");
 		//if(rs.getString("topic")!=null)
 		//{
 		%>
@@ -456,7 +456,7 @@
 	      				</div>
 	      			
 	      				<div class="card-footer bg-white  text-decoration-none ">
-	      					<a href="TacherAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id%>" class="btn btn-white cf text-info" style="box-shadow: none;">view assignment</a>
+	      					<a href="TacherAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id%>&title=<%=title %>" class="btn btn-white cf text-info" style="box-shadow: none;">view assignment</a>
 	      				</div>
     				</div>
   				
