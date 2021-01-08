@@ -142,6 +142,9 @@ String authorStudent; %>
 		session.setAttribute("classcode", code);
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in CreateTeacher.jsp:" + code);
+		String mailId=request.getParameter("mailId");
+		System.out.println("It has"+ mailId+ "session");
+		session.setAttribute("mailId", mailId);
 		%>
 		<!-- creationj of fixed nav bar -->
 		
@@ -159,9 +162,9 @@ String authorStudent; %>
 			</div>
 			<div class="offset-lg-3 offset-0 col-lg-9 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
 				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
-					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>"">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
+					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Stream</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Classwork</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">People</a>&nbsp&nbsp
 					
 				</nav>
 			</div>
@@ -496,97 +499,6 @@ String authorStudent; %>
     				
     				<!-- view_file.jsp?id="<%//out.println(i);%> -->
 						
-					<div class=" card-body child-comments "  id="accordionExample"> 				
-						<!-- show last comment -->
-		<%
-			String sql9 = "SELECT * FROM upload_comment WHERE msg_id=? ORDER BY id DESC LIMIT 1";
-				
-			try {
-			
-			Connection co9= dbconn.Connection();
-			
-			PreparedStatement s9=co9.prepareStatement(sql9);
-			
-			s9.setInt(1, i);
-			  
-			ResultSet r9=s9.executeQuery();
-			    
-		
-
-%>
-	
-<%
-			if (r9.isBeforeFirst()) {
-		%>
-
-		<div>
-			<%
-				
-			%>
-		</div>
-<%} %>
-
-		
-				
-	
-		<%
-					
-		//child_row_count=0;
-		while (r9.next()) {
-			System.out.println(r9.getString("reply_author"));
-		
-		%>
-						
-		<div class="child multi-collapse "> 
-								
-    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
-    								<span class="text-left">
-    			
-    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=r9.getString("reply_author")%> &nbsp<%out.println(r9.getDate("date_cmnt").toLocaleString().subSequence(0, 7)); %></div>
-    								<div  style="line-height:35px;margin-left:45px;"><%out.println(r9.getString("comment")); %>   </div>
-    								</span>
-    								
-    							</div>		
-						
-						
-		<%
-			
-		}
-			}catch (Exception e) {
-		e.printStackTrace();
-		}
-		%>	
-
-							
-						
-						
-						
-						<!-- end last comment -->	
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
 						
 						
 				<%!int child_row_count; %>		
@@ -631,7 +543,7 @@ String authorStudent; %>
 			%>
 			
 			
-					
+					<div class=" card-body child-comments "  id="accordionExample"> 
 					<%
 					//r1.afterLast();
 		    		//System.out.println(r1.getString("comment"));
@@ -772,7 +684,7 @@ String authorStudent; %>
 		%>
 		
 				<div class="card mt-3 " style="border-radius:8px;overflow:hidden;">
-				<a href="StudentAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>" class="text-decoration-none" >
+				<a href="StudentAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>&mailId=<%=mailId%>" class="text-decoration-none" >
 					<div class="card-header  bg bg-white p-3 " style="height:73px;">
     				
       					

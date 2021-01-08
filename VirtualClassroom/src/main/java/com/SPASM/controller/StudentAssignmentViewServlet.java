@@ -33,6 +33,8 @@ public class StudentAssignmentViewServlet extends HttpServlet {
 			System.out.println(request.getParameter("authorName")+id);
 			String author=request.getParameter("authorName");
 			
+			int sid=Integer.parseInt(request.getParameter("sid"));
+			
 			String title=request.getParameter("title");
 			System.out.println("title:"+" "+title);
 			
@@ -52,6 +54,8 @@ public class StudentAssignmentViewServlet extends HttpServlet {
 			HttpSession session=request.getSession();
 			String classcode=(String) session.getAttribute("classcode");
 			String classname=(String) session.getAttribute("classname");
+			String mailId=(String) session.getAttribute("mailId");
+			
 			System.out.println("student assignment post to:"+id);
 			
 			
@@ -63,7 +67,7 @@ public class StudentAssignmentViewServlet extends HttpServlet {
 			savs.setFile(filePart);
 			savs.setFilename(filePart.getSubmittedFileName());
 			savs.setTitle(title);
-			
+			savs.setSid(sid);
 			try {
 				dao.insertStudentAssignment(savs, inputStream);
 			} catch (ClassNotFoundException e) {
@@ -71,7 +75,7 @@ public class StudentAssignmentViewServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			response.sendRedirect("StudentAssignmentView.jsp?code="+classcode+"&classname="+classname+"&author="+author+"&id="+id);//URL re-writing
+			response.sendRedirect("StudentAssignmentView.jsp?code="+classcode+"&classname="+classname+"&author="+author+"&id="+id+"&mailId="+mailId);//URL re-writing
 	}
 	
 }

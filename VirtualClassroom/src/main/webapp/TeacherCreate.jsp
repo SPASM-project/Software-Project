@@ -51,7 +51,7 @@
 %>
 
 <!-- declaration.... -->
-<%!int totalStudent;String title;//int i; String com;String dt;%>
+<%!int totalStudent;//int i; String com;String dt;%>
 
 	
 		<%
@@ -155,7 +155,7 @@
 					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="">Grades</a>
+					<a class="nav-link nav-item " href="TeacherAssignmentGrade.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Grades</a>
 				
 				</nav>
 			</div>
@@ -253,7 +253,7 @@
 			
 				while (rs.next()) {
 		%>		<%String id=rs.getString("id") ;
-		title=rs.getString("title");
+					String title=rs.getString("title");
 		//if(rs.getString("topic")!=null)
 		//{
 		%>
@@ -296,8 +296,8 @@
 	        	<!-- count assigned with database -->
 	        					
 	        	 <%
-			String quary2 = "SELECT count(assign_id) as assigned FROM student_assignment_upload  WHERE  classcode=? and assign_id=? ";
-			
+			//String quary2 = "SELECT count(assign_id) as assigned  FROM student_assignment_upload  WHERE  classcode=? and assign_id=? ";
+			String quary2="SELECT count(assign_id) as assigned,count(stu_assign_id) as assigned1 FROM student_assignment_upload left outer join student_marks on student_assignment_upload.id=student_marks.stu_assign_id WHERE student_assignment_upload.classcode=? and student_assignment_upload.assign_id=?";
 			try {
 			Connection con4= dbconn.Connection();
 			
@@ -328,6 +328,7 @@
 		// id=rs3.getString("id") ;
 		//title=rs4.getString("title") ;
 		int assigned=Integer.parseInt(rs4.getString("assigned"));
+		int assigned1=Integer.parseInt(rs4.getString("assigned1"));
 		
 		%>				
 	        									
@@ -338,7 +339,7 @@
 	        						<div class="col-4 border-left ">
 	        						
 	        							<div class="row">
-	        							<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;">0</p>
+	        							<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;"><%=assigned %></p>
 	        							</div>
 	        							<div class="row">
 	        								<p class="ml-2 text-muted"  style="font-size:12px;">Turned in</p>
@@ -350,10 +351,10 @@
 	        							<div class="col-4 border-left ">
 	        								
 	        								<div class="row">
-	        									<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;"><%=assigned %></p>
+	        									<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;"><%=assigned1%></p>
 	        								</div>
 	        								<div class="row">
-	        									<p class="ml-2 text-muted" style="font-size:12px;">Assigned</p>
+	        									<p class="ml-2 text-muted" style="font-size:12px;">Marked</p>
 	        								</div>
 	        								
 	        							</div>

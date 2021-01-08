@@ -1,0 +1,171 @@
+**** registration *******
+
+i)'CREATE TABLE `registration` (
+  `reg_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `mailid` varchar(150) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`reg_id`),
+  UNIQUE KEY `mailid` (`mailid`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+*****teacher portion*******
+
+ii)'CREATE TABLE `teacher` (
+  `classname` varchar(250) NOT NULL,
+  `section` varchar(50) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `subject` varchar(25) NOT NULL,
+  `mailid` varchar(100) NOT NULL,
+  `classcode` varchar(7) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`classcode`),
+  KEY `mailid` (`mailid`),
+  CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`mailid`) REFERENCES `registration` (`mailid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+iii)'CREATE TABLE `upload` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `classcode` varchar(7) NOT NULL,
+  `post` text NOT NULL,
+  `document` longblob NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `msg_author` varchar(250) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `classcode` (`classcode`),
+  CONSTRAINT `upload_ibfk_1` FOREIGN KEY (`classcode`) REFERENCES `teacher` (`classcode`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=175 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+iv)'CREATE TABLE `upload_comment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `msg_id` int NOT NULL,
+  `comment` text NOT NULL,
+  `date_cmnt` date NOT NULL,
+  `time_cmnt` time NOT NULL,
+  `reply_author` varchar(250) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `msg_id` (`msg_id`),
+  CONSTRAINT `upload_comment_ibfk_1` FOREIGN KEY (`msg_id`) REFERENCES `upload` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+v)'CREATE TABLE `assignment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `classcode` varchar(7) NOT NULL,
+  `classname` varchar(100) NOT NULL,
+  `title` text NOT NULL,
+  `instruction` text NOT NULL,
+  `points` varchar(3) NOT NULL,
+  `due_time` text NOT NULL,
+  `due_date` text NOT NULL,
+  `topic` varchar(250) NOT NULL,
+  `assign_file` longblob NOT NULL,
+  `assign_file_name` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `author` varchar(250) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `classcode` (`classcode`),
+  CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`classcode`) REFERENCES `teacher` (`classcode`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+vi)'CREATE TABLE `teacher_private_comment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `stu_assign_id` int DEFAULT NULL,
+  `private_comment` text,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `created_on` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `teacher_private_comment_ibfk_1` (`stu_assign_id`),
+  CONSTRAINT `teacher_private_comment_ibfk_1` FOREIGN KEY (`stu_assign_id`) REFERENCES `student_assignment_upload` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+
+*****student portion*******
+
+vii)'CREATE TABLE `student_class` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `smailid` varchar(250) NOT NULL,
+  `scontactno` varchar(10) NOT NULL,
+  `scode` varchar(7) NOT NULL,
+  `sname` varchar(250) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `scode` (`scode`),
+  KEY `smailid` (`smailid`(191)),
+  KEY `smailid_2` (`smailid`),
+  CONSTRAINT `student_class_ibfk_1` FOREIGN KEY (`scode`) REFERENCES `teacher` (`classcode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_class_ibfk_2` FOREIGN KEY (`smailid`) REFERENCES `registration` (`mailid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+viii)'CREATE TABLE `student_assignment_upload` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `assign_id` int NOT NULL,
+  `author` varchar(250) NOT NULL,
+  `classcode` varchar(7) NOT NULL,
+  `student_file` longblob NOT NULL,
+  `student_file_name` varchar(250) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `title` text NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `sid` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `assign_id` (`assign_id`),
+  KEY `classcode` (`classcode`),
+  CONSTRAINT `student_assignment_upload_ibfk_1` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_assignment_upload_ibfk_2` FOREIGN KEY (`classcode`) REFERENCES `teacher` (`classcode`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+ix)'CREATE TABLE `student_assignment_reply` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `assign_id` int NOT NULL,
+  `title` text NOT NULL,
+  `author` varchar(150) NOT NULL,
+  `asign_comment` text NOT NULL,
+  `assign_classcode` varchar(7) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `assign_id` (`assign_id`),
+  KEY `assign_classcode` (`assign_classcode`),
+  CONSTRAINT `student_assignment_reply_ibfk_1` FOREIGN KEY (`assign_classcode`) REFERENCES `student_class` (`scode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_assignment_reply_ibfk_2` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+x)'CREATE TABLE `student_assignment_private_comment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `private_id` int NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `private_comment` text NOT NULL,
+  `private_classcode` varchar(7) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `private_classcode` (`private_classcode`),
+  KEY `private_id` (`private_id`),
+  CONSTRAINT `student_assignment_private_comment_ibfk_1` FOREIGN KEY (`private_classcode`) REFERENCES `student_class` (`scode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_assignment_private_comment_ibfk_2` FOREIGN KEY (`private_id`) REFERENCES `assignment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+xi)'CREATE TABLE `student_marks` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `stu_assign_id` int DEFAULT NULL,
+  `marks` int DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `created_on` timestamp NULL DEFAULT NULL,
+  `sid` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `student_marks_ibfk_1` (`stu_assign_id`),
+  CONSTRAINT `student_marks_ibfk_1` FOREIGN KEY (`stu_assign_id`) REFERENCES `student_assignment_upload` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'

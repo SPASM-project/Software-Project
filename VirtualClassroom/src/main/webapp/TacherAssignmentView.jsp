@@ -48,8 +48,11 @@ position: sticky;
 
 <!-- declaration.... -->
 <%!//int i; String com;String dt;%>
-<%!String id;String author;String title;int totalStudent;//int i; String com;String dt;%>
-	
+<%!String id;String auth;String author;String title;int totalStudent;//int i; String com;String dt;%>
+		<%id=request.getParameter("id") ;
+		title=request.getParameter("title");
+		auth=request.getParameter("author");
+		%>
 		<%
 		Db_Connection  dbconn=new Db_Connection () ;
 		String code = request.getParameter("code");
@@ -57,11 +60,13 @@ position: sticky;
 		
 		session.setAttribute("classcode", code);
 		session.setAttribute("classname", classname);
+		session.setAttribute("author", auth);
+		session.setAttribute("id", id);
+		session.setAttribute("title", title);
+		
 		System.out.println("classcode in People.jsp:" + code);
 		%>
-		<%id=request.getParameter("id") ;
-		title=request.getParameter("title");
-		%>
+		
 		
 		
 		
@@ -163,13 +168,13 @@ position: sticky;
 	<!-- end of container-fluid -->
 	
 	
-<form action="AssignmentMarksServlet" method="post">
-<!-- second container-fluid  -->
+<form  method="post">
+<!-- second container-fluid --> 
 	<div class="container-fluid" style="margin-top:83px;">
 		<div class="row border-bottom pb-3">
 			<div class="col-1 offset-1 ">
 			
-				<button class="btn btn-primary">Return</button>
+				
 			</div>
 			
 			<div class="col-lg-1 col-md-4 col-sm-4 col-5 offset-lg-1 offset-md-4 offset-sm-4 offset-4 ">
@@ -198,7 +203,7 @@ position: sticky;
 	
 	 <!--count total student-->
 		<%
-			String sql2 ="SELECT t1.sname FROM student_class t1 LEFT JOIN student_assignment_upload t2 ON (SELECT t2.author  where  assign_id=?) = t1.sname WHERE (SELECT t2.author  where  assign_id=?) IS NULL and scode=?" ;
+			String sql2 ="SELECT t1.sname FROM student_class t1 LEFT JOIN student_assignment_upload t2 ON (SELECT t2.sid  where  assign_id=?) = t1.id WHERE (SELECT t2.sid  where  assign_id=?) IS NULL and scode=?" ;
 			
 			
 				try {
@@ -273,7 +278,7 @@ position: sticky;
 	
 	<!--count total student-->
 		<%
-			String sql9 ="SELECT * FROM student_assignment_upload WHERE  classcode=? and assign_id=? ";
+			String sql9 ="SELECT * FROM student_assignment_upload left outer join student_marks on student_assignment_upload.id=student_marks.stu_assign_id  WHERE  classcode=? and assign_id=? ";
 			
 			
 				try {
@@ -307,23 +312,26 @@ position: sticky;
  <div class="col-8 p-3 text-info">Assigned</div>
 		<%
 			while (r9.next()) {
-					
+				
 		%>
 		
-	<div class="col-8 pt-3  border-bottom border-right border-top">
-		<%=r9.getString("author") %>
-		</div>
-					<!-- first column student list -->		
-			<div class="col-4 pt-3 border-bottom border-top">
-			<form action="AssignmentMarksServlet" method="post">
-			<input type="text" class="form-control" name="marks"  id="exampleInputEmail1<%=r9.getString("id")%>" aria-describedby="emailHelp">
-		<div class="form-group">
-    
-    		
-    		<input type="hidden" class="form-control" name="studentNameAssigned" value="<%=r9.getString("author") %>" id="exampleInputEmail1" aria-describedby="emailHelp">
-   
+	<div class="col-7 p-3  border-bottom border-right border-top">
+		<div class="text-center">
+    		<a class="btn btn-light btn-block text-dark" value="<%=r9.getString("sid")%>" id="reply" name="<%out.println(r9.getString("id")); %>" class="link-reply bg-white" role="button" style=""><%=r9.getString("author") %></a>
   		</div>
-  		</form>
+	</div>
+					<!-- first column student list 	-->	
+		<div class="col-5 pt-3 border-bottom border-top">
+			
+			<div class="form-group">
+    			
+		
+  		<div class="text-center">
+    		<a class="btn btn-light btn-block text-dark" value="<%=r9.getString("sid")%>" id="reply1" name="<%out.println(r9.getString("id")); %>" class="link-reply bg-white" role="button" style=""><%=r9.getInt("marks") %></a>
+  		</div>
+  			
+  			
+  			</div>
 		</div>
 					
 				
@@ -370,7 +378,7 @@ position: sticky;
 	        					<!-- count assigned with database -->
 	        					
 	        	 <%
-			String quary2 = "SELECT count(assign_id) as assigned,title FROM student_assignment_upload  WHERE  classcode=? and assign_id=? ";
+			String quary2 = "SELECT count(assign_id) as assigned,count(stu_assign_id) as assigned1,title FROM student_assignment_upload left outer join student_marks on student_assignment_upload.id=student_marks.stu_assign_id WHERE student_assignment_upload.classcode=? and student_assignment_upload.assign_id=?";
 			
 			try {
 			Connection con4= dbconn.Connection();
@@ -406,6 +414,7 @@ position: sticky;
 		
 		title=rs4.getString("title") ;
 		int assigned=Integer.parseInt(rs4.getString("assigned"));
+		int assigned1=Integer.parseInt(rs4.getString("assigned1"));
 		
 		%>				
 	        					
@@ -447,12 +456,12 @@ position: sticky;
 	        								
 	        								<div class="row">
 	        								<div class="col-12">
-	        									<p class=" text-dark"  style="font-size:37px;font-weight: 550;"><%=(totalStudent-assigned)%></p>
+	        									<p class=" text-dark"  style="font-size:37px;font-weight: 550;"><%=assigned1%></p>
 	        								</div>
 	        								</div>
 	        								<div class="row">
 	        								<div class="col-12">
-	        									<p class="text-muted" style="font-size:12px;">Assigned</p>
+	        									<p class="text-muted" style="font-size:12px;">Marked</p>
 	        								</div>
 	        								</div>
 	        								
@@ -736,7 +745,7 @@ position: sticky;
 	</div>
 	
 	
-	
+	</form>
 	
 	
 	
@@ -756,5 +765,126 @@ position: sticky;
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+//this is for put student marks and private comment
+	$("a#reply").one("click",function() {
+		                                                                                          
+		var comCode = $(this).attr("name");
+		var parent = $(this).parent();
+		var author=$(this).attr("value");
+		var data = "<br> <form action='AssignmentMarksServlet' method='post' id='comment'> <div class='input-group input-group-sm rounded-lg '> <input type=number class='form-control ' aria-label='Example text with two button addons' aria-describedby='button-addon3'  style='resize:none;overflow:hidden;box-shadow:none;!important'  name='marks' id='new-reply1'  ><input type='hidden' name='stuAssignId' value='"+comCode+"'><input type='hidden' name='stuId' value='"+author+"'><div class='input-group-append' id='button-addon3'><input type='submit' disabled class='btn btn-primary' id='reply-btn1' value='Return'  style='box-shadow:none;!important'></div></div></form>";
+		var data1 = "<br> <form action='TeacherAssignmentPrivateCommentServlet' method='post' id='comment'> <div class='input-group input-group-sm rounded-lg '> <textarea class='form-control ' aria-label='Example text with two button addons' aria-describedby='button-addon3'  style='resize:none;overflow:hidden;box-shadow:none;!important'  name='privateComment' id='new-reply' rows='2' ></textarea><input type='hidden' name='stuAssignId' value='"+comCode+"'><input type='hidden' name='stuId' value='"+author+"'><div class='input-group-append' id='button-addon3'><input type='submit' disabled class='btn btn-primary'  id='reply-btn' value='Private Comment'  style='box-shadow:none;!important'></div></div></form>";
+
+		parent.append(data1);
+		parent.append(data);
+												
+												
+	    alert(comCode+author);
+
+		//auto increasing of textarea for private comment
+		$("#new-reply").on("keyup input",function(){
+			
+			
+			var empty1=false;
+			$(this).css('height','auto').css('height',this.scrollHeight+(this.offsetHeight-this.clientHeight));
+
+			$("#new-reply").each(function(){
+			if($(this).val()=='')
+				{
+			
+					empty1=true;
+				}
+			});
+			if(empty1)
+				{
+					$('#reply-btn').attr('disabled', 'disabled');
+				}
+			else{
+				$('#reply-btn').removeAttr('disabled');
+				}
+			
+			});		
+		
+		//auto increasing of textarea for marks
+		$("#new-reply1").on("keyup input",function(){
+			
+			
+			var empty1=false;
+			$(this).css('height','auto').css('height',this.scrollHeight+(this.offsetHeight-this.clientHeight));
+
+			$("#new-reply1").each(function(){
+			if($(this).val()=='')
+				{
+			
+					empty1=true;
+				}
+			});
+			if(empty1)
+				{
+					$('#reply-btn1').attr('disabled', 'disabled');
+				}
+			else{
+				$('#reply-btn1').removeAttr('disabled');
+				}
+			
+			});							
+				
+});
+	
+	
+	
+	
+	//this is for update student marks
+
+	
+	$("a#reply1").one("click",function() {
+        
+		var comCode = $(this).attr("name");
+		var parent = $(this).parent();
+		var author=$(this).attr("value");
+		var data = "<br> <form action='AssignmentMarksUpdateServlet' method='post' id='comment'> <div class='input-group input-group-sm rounded-lg '> <textarea class='form-control ' aria-label='Example text with two button addons' aria-describedby='button-addon3'  style='resize:none;overflow:hidden;box-shadow:none;!important'  name='marks' id='new-reply1' rows='2'></textarea><input type='hidden' name='stuAssignId' value='"+comCode+"'><input type='hidden' name='stuId' value='"+author+"'><div class='input-group-append' id='button-addon3'><input type='submit' disabled class='btn btn-primary' id='reply-btn1' value='Change'  style='box-shadow:none;!important'></div></div></form>";
+				
+		parent.append(data);
+												
+												
+	    alert(comCode+author);
+
+	
+		
+		//auto increasing of textarea for marks
+		$("#new-reply1").on("keyup input",function(){
+			
+			
+			var empty1=false;
+			$(this).css('height','auto').css('height',this.scrollHeight+(this.offsetHeight-this.clientHeight));
+
+			$("#new-reply1").each(function(){
+			if($(this).val()=='')
+				{
+			
+					empty1=true;
+				}
+			});
+			if(empty1)
+				{
+					$('#reply-btn1').attr('disabled', 'disabled');
+				}
+			else{
+				$('#reply-btn1').removeAttr('disabled');
+				}
+			
+			});							
+				
+});
+	
+	
+});
+
+
+
+
+</script>
 
 </html>

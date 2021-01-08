@@ -31,7 +31,6 @@ public class ReplyServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		String classcode=(String) session.getAttribute("classcode");
 		String classname=(String) session.getAttribute("classname");
-	
 		
 		ReplyModel rm=new ReplyModel();
 		rm.setNew_reply_code(new_reply_code);

@@ -52,6 +52,7 @@ public class StudentPostServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		String classcode=(String) session.getAttribute("classcode");
 		String classname=(String) session.getAttribute("classname");
+		String mailId=(String) session.getAttribute("mailId");
 		System.out.println("post to:"+classcode);
 		
 	PostMsg m=new PostMsg();
@@ -68,6 +69,6 @@ public class StudentPostServlet extends HttpServlet {
 		e.printStackTrace();
 	}
 
-	response.sendRedirect("CreateStudent.jsp?code="+classcode+"&classname="+classname+"&author="+author);//URL re-writing
+	response.sendRedirect("CreateStudent.jsp?code="+classcode+"&classname="+classname+"&author="+author+"&mailId="+mailId);//URL re-writing
 	}
 }

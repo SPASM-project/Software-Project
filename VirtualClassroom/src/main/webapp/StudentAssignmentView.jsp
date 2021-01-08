@@ -40,19 +40,80 @@
 %>
 
 <!-- declaration.... -->
-<%!String id;String author;String title;//int i; String com;String dt;%>
+<%!int sid;String aid;String id;String author;String title;//int i; String com;String dt;%>
 
 	<% 
-	Db_Connection  dbconn=new Db_Connection () ;
+		Db_Connection  dbconn=new Db_Connection ();
 		author=request.getParameter("author");
 		String code = request.getParameter("code");
 		String classname=request.getParameter("classname");
+		String mailId=request.getParameter("mailId");
 		
-		
+		session.setAttribute("mailId", mailId);
 		session.setAttribute("classcode", code);
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in StudentAssignmentView.jsp:" + code);
 		%>
+		
+<!-- get student id from student_class -->
+<%
+			String quary9 = "select id from student_class where scode=? and smailid=?";
+			
+			try {
+			Connection con9= dbconn.Connection();
+			
+			System.out.println("connected create teacher..");//connection
+
+			PreparedStatement st9 = con9.prepareStatement(quary9);
+			st9.setString(1, code);
+			st9.setString(2, mailId);
+			ResultSet rs9 = st9.executeQuery();
+
+			if (!rs9.isBeforeFirst()) {
+	%>
+		<div>
+		
+		<%
+				out.print("");
+		%>
+		</div>
+		
+		
+		
+		<%} %>
+		
+		
+		<% 
+		
+		while (rs9.next()) {
+		 sid=rs9.getInt("id") ;
+		 System.out.println("student_id"+sid);
+		}
+		
+		%>
+
+		<%
+			rs9.close();
+			st9.close();
+			con9.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+					
+%>
+
+
+
+<!-- end of getting student id from student_class -->
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<%id=request.getParameter("id") ;%>
 <div class="conatainer-fluid">
 		<!-- creation of fixed nav bar -->
@@ -257,92 +318,6 @@
        					
        					
        					
-       					
-       					
-       					
-       					<div class=" card-body child-comments "  id="accordionExample"> 				
-						<!-- show last comment -->
-		<%
-			String sql9 = "SELECT * FROM student_assignment_reply WHERE assign_classcode=? and assign_id=? ORDER BY id DESC LIMIT 1";
-				
-			try {
-			
-			Connection co9= dbconn.Connection();
-			
-			PreparedStatement s9=co9.prepareStatement(sql9);
-			
-			s9.setString(1, code);
-			s9.setString(2, id);
-			  
-			ResultSet r9=s9.executeQuery();
-			    
-		
-
-%>
-	
-<%
-			if (r9.isBeforeFirst()) {
-		%>
-
-		<div>
-			<%
-				
-			%>
-		</div>
-<%} %>
-
-		
-				
-	
-		<%
-					
-		//child_row_count=0;
-		while (r9.next()) {
-			System.out.println(r9.getString("author"));
-		
-		%>
-		
-       	 				
-       	 				
-						
-		<div class="child multi-collapse "> 
-								
-    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
-    								<span class="text-left">
-    			
-    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=r9.getString("author")%> &nbsp<%out.println(r9.getDate("date").toLocaleString().subSequence(0, 7)); %></div>
-    								<div  style="line-height:35px;margin-left:45px;"><%out.println(r9.getString("asign_comment")); %>   </div>
-    								</span>
-    		
-    								
-    							</div>		
-						
-					
-		<%
-			
-		}
-			}catch (Exception e) {
-		e.printStackTrace();
-		}
-		%>	
-
-							
-						
-						
-						
-						<!-- end last comment -->
-       					
-       					
-       					
-       					
-       					
-       					
-       					
-       					
-       					
-       					
-       					
-       					
        					<!-- start -->
 <%! int count;%>       							
 					<!-- assignment comment-->
@@ -523,7 +498,8 @@
 		<% 
 		
 		while (rs4.next()) {
-		//id=rs4.getString("id") ;
+		aid=rs4.getString("id") ;
+		System.out.println("aid"+aid);
 		title=rs4.getString("title") ;
 		
 		%>
@@ -647,6 +623,10 @@
 		<input type="hidden" name="id" value="<%=id%>">
 	
 		<input type="hidden" name="title" value="<%=title%>">
+		
+		<input type="hidden" name="sid" value="<%=sid%>">
+		
+		
 	
 	 	<button type="button" id="btnUpload" class="btn btn-primary btn-md btn-block mt-3" onclick="servletCall('post')" style="box-shadow:none;">Mark as done</button>
 	</div>
@@ -664,8 +644,82 @@
 	<div class="col-12 mt-2 mt-md-4 mb-3">
 	<div class="card" style="border-radius: 8px;box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2); overflow:hidden;">
 	
-	<%!int count1; %>
-	<!-- fetch private comment and place it into card body -->
+
+				
+				
+<%!int count2;%>
+	<!-- fetch teacher private comment and place it into card body -->
+	<%
+			String quary7 = "select teacher_private_comment.private_comment,teacher_private_comment.date,teacher_private_comment.time,assignment.author  from teacher_private_comment inner join student_assignment_upload on stu_assign_id=student_assignment_upload.id inner join assignment on assignment.id=student_assignment_upload.assign_id where assign_id=? and student_assignment_upload.classcode=? and stu_assign_id=?";
+			
+			try {
+			Connection con7= dbconn.Connection();
+			
+			System.out.println("connected create teacher..");//connection
+
+			PreparedStatement st7 = con7.prepareStatement(quary7);
+			//st7.setString(1, author);
+			st7.setString(1, id);
+			st7.setString(2,code);
+			st7.setString(3,aid);
+			ResultSet rs7= st7.executeQuery();
+
+			if (!rs7.isBeforeFirst()) {
+	%>
+		<div>
+		
+		<%
+				out.print("");
+		%>
+		</div>
+		
+		
+		
+		<%} %>
+		
+		
+		<% 
+		count2=0;
+		while (rs7.next()) {
+		//id=rs4.getString("id") ;
+		//title=rs7.getString("title") ;
+	
+		%>
+	<div class="card-header bg-white pl-3 pt-2 border-0" style="overflow:hidden;">	
+				
+       	 						<div class="child  collapsee mt-1" id="collapse-<%=aid%>" > 
+								
+    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+    								<span class="text-left">
+    			
+    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=rs7.getString("author")%> &nbsp<%out.println(rs7.getDate("date").toLocaleString().subSequence(0, 7)); %></div>
+    								<div  style="line-height:33px;margin-left:45px;"><%out.println(rs7.getString("private_comment")); %>   </div>
+    								</span>
+    								
+    							</div>
+    							<%count2++; %>
+    							
+       	 				
+	
+	</div>	
+<%
+}
+%>
+		
+		<%
+			rs7.close();
+			st7.close();
+			con7.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+					
+%>
+				<!-- end of teacher private comment -->				
+				
+				
+			<%!int count1; %>
+	<!-- fetch student private comment and place it into card body -->
 	<%
 			String quary5 = "select * from student_assignment_private_comment where author=? and private_id=? and private_classcode=? ";
 			
@@ -721,20 +775,34 @@
 <%
 }
 %>
-
-	
-
+		
+		<%
+			rs6.close();
+			st6.close();
+			con6.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
 					
-					
+%>
+				<!-- end of student private comment -->		
 				
 				
 				
 				
-				<!-- end -->
+				
+				
+				
+				
+				
+				
+				
+				
+				
 	<div class="card-footer p-3 bg-white" style="height: 100%;border-radius: 0px 0px 8px; overflow:hidden;" >
 	
-	<%if(count1>0){ %>
-		<a class=" btn btn-white  ml-3 mb-2 collapsed com " data-toggle="collapse" href="#collapse-<%=id%>" aria-expanded="false" aria-controls="collapse-<%=id %>" style="box-shadow:none;" role="button"   name="<%out.println(id);%>"  > <span class="card-text" style="margin:0;"><%out.println(count1);%>private comments</span></a>
+	<%if(count1>0 || count2>0){ %>
+		<a class=" btn btn-white  ml-3 mb-2 collapsed com " data-toggle="collapse" href="#collapse-<%=id%>" aria-expanded="false" aria-controls="collapse-<%=id %>" style="box-shadow:none;" role="button"   name="<%out.println(id);%>"  > <span class="card-text" style="margin:0;"><%out.println(count1+count2);%>private comments</span></a>
 		<%} else{%>
 		<span style="font-size: 16px; font-weight: 550;">Private comments</span>
 		<% }%>
@@ -772,16 +840,7 @@
 				
 				
 				
-				
-		<%
-			rs6.close();
-			st6.close();
-			con6.close();
-			} catch (Exception e) {
-			e.printStackTrace();
-			}
-					
-%>
+		
 	
 	
 	

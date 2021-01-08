@@ -27,6 +27,7 @@ public class StudentReplyServlet extends HttpServlet {
    		HttpSession session=request.getSession();
    		String classcode=(String) session.getAttribute("classcode");
    		String classname=(String) session.getAttribute("classname");
+   		String mailId=(String)session.getAttribute("mailId");
    	
    		
    		ReplyModel rm=new ReplyModel();
@@ -39,7 +40,7 @@ public class StudentReplyServlet extends HttpServlet {
    			// TODO Auto-generated catch block
    			e.printStackTrace();
    		}
-   	response.sendRedirect("CreateStudent.jsp?code="+classcode+"&classname="+classname+"&author="+new_reply_author); //URL re-writing
+   	response.sendRedirect("CreateStudent.jsp?code="+classcode+"&classname="+classname+"&author="+new_reply_author+"&mailId="+mailId); //URL re-writing
    	}
 
 }

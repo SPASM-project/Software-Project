@@ -2,11 +2,10 @@ package com.SPASM.DAO;
 
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-
+import com.SPASM.model.AssignmentMarksModel;
 import com.SPASM.model.PostMsg;
 import com.SPASM.model.RegistrationModel;
 import com.SPASM.model.ReplyModel;
@@ -16,6 +15,7 @@ import com.SPASM.model.StudentAssignmentReplyModel;
 import com.SPASM.model.StudentAssignmentViewServletModel;
 import com.SPASM.model.Teacher;
 import com.SPASM.model.TeacherAssignment;
+import com.SPASM.model.TeacherAssignmentPrivateCommentModel;
 
 
 public class DatabaseDAO {
@@ -277,7 +277,7 @@ public void insertStudentAssignment(StudentAssignmentViewServletModel c,InputStr
 	//	System.out.println(h.getNew_com_code()+h.getNew_com_text());
 		//driver();
 	
-		String sql="INSERT INTO student_assignment_upload (assign_id ,	author,	classcode , student_file, student_file_name, date,	time, title) VALUES (?,?,?,?,?,?,?,?)";
+		String sql="INSERT INTO student_assignment_upload (assign_id ,	author,	classcode , student_file, student_file_name, date,	time, title, sid) VALUES (?,?,?,?,?,?,?,?,?)";
 		try
 		{
 			//Db_Connection  dbconn=new Db_Connection () ;
@@ -303,6 +303,7 @@ public void insertStudentAssignment(StudentAssignmentViewServletModel c,InputStr
 			st.setDate(6, sqlDate);
 			st.setTime(7, sqlTime);
 			st.setString(8,c.getTitle());
+			st.setInt(9, c.getSid());
 			
 			int i=st.executeUpdate();
 			System.out.println(i+"row inserted student_assignment_upload table");
@@ -378,4 +379,94 @@ public void insertStudentAssignmentPrivateComment(StudentAssignmentPrivateCommen
 }
 
 
+
+public void insertStudentAssignmentMarks(AssignmentMarksModel c) throws ClassNotFoundException {
+	
+	
+	String sql="INSERT INTO student_marks (stu_assign_id,marks,date,time,sid) VALUES (?,?,?,?,?);";
+	try
+	{
+		Connection con= dbconn.Connection();
+		
+		
+		java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
+        
+		PreparedStatement st=con.prepareStatement(sql);
+		st.setString(1,c.getStuAssignId());
+		st.setInt(2,c.getMarks());
+		
+		st.setDate(3, sqlDate);
+		st.setTime(4, sqlTime);
+		st.setInt(5, Integer.parseInt(c.getStuId()));
+		
+		int i=st.executeUpdate();
+		System.out.println(i+"row inserted student_marks table");
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
+
+
+public void insertTeacherAssignmentPrivateComment(TeacherAssignmentPrivateCommentModel c) throws ClassNotFoundException {
+	
+	
+	String sql="INSERT INTO teacher_private_comment (stu_assign_id,private_comment,date,time) VALUES (?,?,?,?);";
+	try
+	{
+		Connection con= dbconn.Connection();
+		
+		
+		java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
+        
+		PreparedStatement st=con.prepareStatement(sql);
+		st.setString(1,c.getStuAssignId());
+		st.setString(2,c.getPrivateComment());
+		
+		st.setDate(3, sqlDate);
+		st.setTime(4, sqlTime);
+		
+		
+		int i=st.executeUpdate();
+		System.out.println(i+"row inserted teacher_private_comment table");
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
+
+
+public void insertStudentAssignmentUpdateMarks(AssignmentMarksModel c) throws ClassNotFoundException {
+	
+	
+	String sql="update student_marks set marks=? where stu_assign_id=?";
+	try
+	{
+		Connection con= dbconn.Connection();
+		
+		
+		//java.util.Date utilDate = new java.util.Date();
+        //java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        //java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
+        
+		PreparedStatement st=con.prepareStatement(sql);
+		st.setInt(1,c.getMarks());
+		st.setString(2,c.getStuAssignId());
+		
+		
+		//st.setDate(3, sqlDate);
+		//st.setTime(4, sqlTime);
+		
+		
+		int i=st.executeUpdate();
+		System.out.println(i+"row updated student_marks table");
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
 }

@@ -41,6 +41,7 @@ public class StudentAssignmentPrivateCommentServlet extends HttpServlet {
    		 	HttpSession session=request.getSession();
    			String classcode=(String) session.getAttribute("classcode");
    			String classname=(String) session.getAttribute("classname");
+   			String mailId=(String) session.getAttribute("mailId");
    			System.out.println("student assignment comment to:"+id);
  			
    			
@@ -58,7 +59,7 @@ public class StudentAssignmentPrivateCommentServlet extends HttpServlet {
    				e.printStackTrace();
    			}
    		 
-   			response.sendRedirect("StudentAssignmentView.jsp?code="+classcode+"&classname="+classname+"&author="+author+"&id="+id);//URL re-writing
+   			response.sendRedirect("StudentAssignmentView.jsp?code="+classcode+"&classname="+classname+"&author="+author+"&id="+id+"&mailId="+mailId);//URL re-writing
 	
 	
 

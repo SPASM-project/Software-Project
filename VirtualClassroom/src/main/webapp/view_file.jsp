@@ -47,7 +47,7 @@
                   
                 } 
                 response.reset();
-                //response.setContentType("application/pdf; charset = utf-8");
+                response.setContentType("application/pdf; charset = utf-8");
                 request.setCharacterEncoding("UTF-8");
                 response.setHeader("Content-Disposition", "inline");
                 

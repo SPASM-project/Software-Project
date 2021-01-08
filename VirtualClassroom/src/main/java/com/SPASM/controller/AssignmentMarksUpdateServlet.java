@@ -1,7 +1,6 @@
 package com.SPASM.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,21 +11,23 @@ import com.SPASM.DAO.DatabaseDAO;
 import com.SPASM.model.AssignmentMarksModel;
 
 
-public class AssignmentMarksServlet extends HttpServlet {
+public class AssignmentMarksUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public AssignmentMarksServlet() {
+       
+    
+    public AssignmentMarksUpdateServlet() {
         super();
-        
+       
     }
 
-	DatabaseDAO dao=new DatabaseDAO();
+	
+    DatabaseDAO dao=new DatabaseDAO();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("welcome to AssignmentMarksServlet..");
 		String stuAssignId=request.getParameter("stuAssignId");
 		String stuId=request.getParameter("stuId");
 		int marks=Integer.parseInt(request.getParameter("marks"));
-		System.out.println(stuAssignId+stuId);
+		System.out.println("stuId:"+stuAssignId+"stuName:"+stuId);
 		System.out.println(marks);
 		
 		AssignmentMarksModel amm=new AssignmentMarksModel();
@@ -35,7 +36,7 @@ public class AssignmentMarksServlet extends HttpServlet {
 		amm.setMarks(marks);
 		
 		try {
-			dao.insertStudentAssignmentMarks(amm);
+			dao.insertStudentAssignmentUpdateMarks(amm);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

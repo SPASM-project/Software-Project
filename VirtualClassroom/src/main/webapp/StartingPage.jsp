@@ -121,6 +121,7 @@ if(session.getAttribute("mailid")==null)
 Db_Connection  dbconn=new Db_Connection () ; 
 String mailid=request.getParameter("mail");
 System.out.println("it has in"+mailid+ "session");
+session.setAttribute("mailId", mailid);
 
 %>
 
@@ -144,6 +145,7 @@ System.out.println("it has in"+mailid+ "session");
 			if(rs4.next()){
 				System.out.println(rs4.getString("name"));
 				authorName=rs4.getString("name");
+				System.out.println(authorName);
 			}
 			rs4.close();
 			st4.close();
@@ -243,7 +245,7 @@ System.out.println("it has in"+mailid+ "session");
 				           	</div>
 				           	
 							<!-- <div class="form-group" style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">-->
-								<input type="hidden" value="<%=authorName%>" id="name" required class="form-control  shadow-sm" placeholder="" name="teacher_name" style="background:none;outline:none;border:none;height:4rem;">
+								<input type="hidden" value="<%out.print(authorName);%>" id="name" required class="form-control  shadow-sm"  name="teacher_name" style="background:none;outline:none;border:none;height:4rem;">
 								<!--<label>Name</label>
 								<div class="bar"></div>
 							</div>-->
@@ -433,7 +435,7 @@ System.out.println("it has in"+mailid+ "session");
 					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; "><!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); -->
 						<div class="card-header bg-info " style="height:95px; border-radius:10px 10px 0px 0px;">
 							<a class=" float-right text-light" aria-hidden="true" style="opacity:95%;"><div class="fa fa-ellipsis-v"></div></a>
-								<a class="text-light" href="CreateStudent.jsp?code=<%out.print(rs1.getString("classcode"));%>&classname=<%out.print(rs1.getString("classname"));%>&author=<%=authorName%>">
+								<a class="text-light" href="CreateStudent.jsp?code=<%out.print(rs1.getString("classcode"));%>&classname=<%out.print(rs1.getString("classname"));%>&author=<%=authorName%>&mailId=<%=mailid%>">
 							
 									<h3 class="card-title ">
 										<%
@@ -536,13 +538,13 @@ System.out.println("it has in"+mailid+ "session");
 		
 
 		//for input type text 
-		$("#cname,#section,#name,#subject,#mail").on("keyup input",function(){
+		$("#cname,#section,#subject").on("keyup input",function(){
 			
 			
 			var empty2=false;
 		
 
-			$("#cname,#section,#name,#subject,#mail").each(function(){
+			$("#cname,#section,#subject").each(function(){
 			if($(this).val()=='')
 				{
 			
