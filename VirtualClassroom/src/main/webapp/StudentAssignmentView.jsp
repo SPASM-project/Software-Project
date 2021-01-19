@@ -225,7 +225,7 @@
     						 	if(rs3.getString("assign_file_name").endsWith("pdf")){
     						 	%>
     						 	
-							<a href="view_file.jsp?id=<%out.println(id);%>"
+							<a href="view_file_a.jsp?id=<%=rs3.getString("id")%>"
 								style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3  border rounded ">
@@ -250,7 +250,7 @@
     						 	
     						 	{%>
     						 	
-    						 	<a href="view_file.jsp?id=<%out.println(id);%>"
+    						 	<a href="view_file_a.jsp?id=<%=rs3.getString("id")%>"
 								style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3  border rounded ">
@@ -271,7 +271,7 @@
 							
 							<%}else if(rs3.getString("assign_file_name").endsWith("txt")) {%>
     						 	
-    						 	<a href="view_file.jsp?id=<%out.println(id);%>"
+    						 	<a href="view_file_a.jsp?id=<%=rs3.getString("id")%>"
 								style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3  border rounded ">
@@ -510,7 +510,7 @@
     						 	if(rs4.getString("student_file_name").endsWith("pdf")){
     						 	%>
     						 <span class="text-muted" style="font-size: 13px; font-weight: 550;">Turned in</span>
-							<a href="view_file.jsp?id=<%out.println(id);%>"
+							<a href="view_file_s.jsp?id=<%=rs4.getString("id")%>"
 								style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3 w-100 border rounded ">
@@ -535,7 +535,7 @@
     						 	
     						 	{%>
     						 <span class="text-muted" style="font-size: 13px; font-weight: 550;">Turned in</span>
-    						 	<a href="view_file.jsp?id=<%out.println(id);%>"
+    						 	<a href="view_file_s.jsp?id=<%=rs4.getString("id")%>"
 								style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3 w-100 border rounded ">
@@ -556,7 +556,7 @@
 							
 							<%}else if(rs4.getString("student_file_name").endsWith("txt")) {%>
     						 	<span class="text-muted" style="font-size: 13px; font-weight: 550;">Turned in</span>
-    						 	<a href="view_file.jsp?id=<%out.println(id);%>"
+    						 	<a href="view_file_s.jsp?id=<%=rs4.getString("id")%>"
 								style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3 w-100 border rounded ">

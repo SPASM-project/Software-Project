@@ -192,7 +192,13 @@
 		    
 		    Assignment
 		    </a>
-		    <a class="dropdown-item" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Question</a>
+		    <a class="dropdown-item" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">
+		    
+		    <span class="material-icons">
+Question
+</span>
+		    
+		    </a>
 		    <a class="dropdown-item" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Material</a>
 		    <div class="dropdown-divider"></div>
 		    <a class="dropdown-item" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Topic</a>
@@ -400,7 +406,7 @@
     						  	if(rs.getString("assign_file_name").endsWith("pdf")){
     						%>
     						 	
-							<a href="view_file.jsp?id=<%=rs.getString("id") %>" style="" class="text-decoration-none text-dark">
+							<a href="view_file_a.jsp?id=<%=rs.getString("id") %>" style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3 w-50 border rounded ">
 									<i class=" text-decoration-none fa fa-file-pdf-o fa-4x  border p-1" style=""></i>

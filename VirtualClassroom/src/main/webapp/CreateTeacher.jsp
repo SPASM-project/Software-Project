@@ -124,7 +124,7 @@ String author;int ii;String title; %>
 	%>
 
 
-
+<% Db_Connection  dbconn=new Db_Connection () ;%>
 	
 		<%
 			
@@ -162,7 +162,7 @@ String author;int ii;String title; %>
 		
 		<!-- end of nav bar -->
 	</div>
-		<% Db_Connection  dbconn=new Db_Connection () ;%>
+		
 		<div class="container-fluid"> <!-- 1st div.... -->
 		
 		

@@ -196,7 +196,7 @@
     						  	if(rs.getString("assign_file_name").endsWith("pdf")){
     						%>
     						 	
-							<a href="view_file.jsp?id=<%=rs.getString("id") %>" style="" class="text-decoration-none text-dark">
+							<a href="view_file_a.jsp?id=<%=rs.getString("id") %>" style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3 w-50 border rounded ">
 									<i class=" text-decoration-none fa fa-file-pdf-o fa-4x  border p-1" style=""></i>
@@ -217,7 +217,7 @@
     						 	{
     						 	%>
     						 	
-    						 	<a href="view_file.jsp?id=<%rs.getString("id");%>" style="" class="text-decoration-none text-dark">
+    						 	<a href="view_file_a.jsp?id=<%rs.getString("id");%>" style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3 w-50 border rounded ">
 									<i class=" text-decoration-none fa fa-file-text fa-4x  border p-1" style=""></i>
@@ -233,7 +233,7 @@
 							
 							<%}else if(rs.getString("assign_file_name").endsWith("txt")) {%>
     						 	
-    						 	<a href="view_file.jsp?id=<%rs.getString("id");%>" style="" class="text-decoration-none text-dark">
+    						 	<a href="view_file_a.jsp?id=<%rs.getString("id");%>" style="" class="text-decoration-none text-dark">
 
 								<div class="media mt-3 w-50 border rounded ">
 									<i class=" text-decoration-none fa fa-file-text-o fa-4x  border p-1" style=""></i>

@@ -38,7 +38,7 @@
 		auth=request.getParameter("author");
 		%>
 		<%
-		Db_Connection  dbconn=new Db_Connection () ;
+		Db_Connection  dbconn=new Db_Connection () ;//how to abstract dbConnection?
 		String code = request.getParameter("code");
 		String classname=request.getParameter("classname");
 		
@@ -83,7 +83,7 @@
 <!-- database for student class column-->
 <%
 			
-	String quary2="select * from student_class inner join teacher on student_class.scode=teacher.classcode where classcode=?" ;
+	String quary2="select * from student_class inner join teacher on student_class.scode=teacher.classcode where classcode=? order by student_class.id" ;
 	try {
 	Connection con4= dbconn.Connection();
 			
@@ -109,7 +109,7 @@
 		
 <div class="container-fluid" style="margin-top:66px;">
 <div class="row">
-<div class="col-2 ">
+<div class="col-lg-2 col-md- ">
 	<div class="row border pt-5 pb-4 ">
 		<div class="col-12">
 			<p class="mt-2">Student Name</p>
@@ -267,17 +267,18 @@
 	<!-- database for second row-->
 <%
 			
-	String quary5="select * from student_marks right outer join student_assignment_upload on student_marks.stu_assign_id=student_assignment_upload.id where assign_id=? and student_assignment_upload.classcode=?" ;
+	//String quary5="select * from student_marks right outer join student_assignment_upload on student_marks.stu_assign_id=student_assignment_upload.id where assign_id=? and student_assignment_upload.classcode=?" ;
 	//String quary5="select * from student_marks right outer join student_assignment_upload on student_marks.stu_assign_id=student_assignment_upload.id right join student_class on (select sname where student_class.scode=?)=student_assignment_upload.author where assign_id=? and student_assignment_upload.classcode=?";
+	String quary5="select * from student_class left outer join student_assignment_upload on student_class.id=(select sid where assign_id=?) left outer join student_marks on stu_assign_id=(select student_assignment_upload.id where assign_id=?) where scode=? order by student_class.id";
 			try {
 	Connection con7= dbconn.Connection();
 			
 	//System.out.println("connected create teacher..");//connection
 
 	PreparedStatement st7 = con7.prepareStatement(quary5);
-	//st7.setString(1,code);
 	st7.setInt(1,assignId);
-	st7.setString(2,code);
+	st7.setInt(2,assignId);
+	st7.setString(3,code);
 	
 	ResultSet rs7 = st7.executeQuery();
 
@@ -304,24 +305,24 @@
 		//if(rs7.getFloat("marks")!=""){
 	%>
 	
-		<%if(rs7.getFloat("marks")==0) {%>
+		<%if(rs7.getString("marks")==null && rs7.getString("student_file_name")==null) {%>
 	
 		<div class="row border pt-4 pb-4">
 		<div class="col-12">
-			not marked
-		</div>
-		</div>
-		<%}else if(rs7.getString("marks")==""){ %>
-		<div class="row border pt-4 pb-4">
-		<div class="col-12">
 			not assigned
+		</div>
+		</div>
+		<%}else if(rs7.getString("student_file_name")!=null && rs7.getString("marks")==null){ %>
+		<div class="row border pt-4 pb-3">
+		<div class="col-12">
+			<p class="text-danger">Not Assigned</p>
 		</div>
 		</div>
 		
 		<%}else{ %>
 		<div class="row border pt-4 pb-4">
 		<div class="col-12">
-			<%=rs7.getFloat("marks")%>
+			<p class="text-dark"><%=rs7.getFloat("marks")%></p>
 		</div>
 		</div>
 		<%} %>

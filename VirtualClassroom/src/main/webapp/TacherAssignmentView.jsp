@@ -558,7 +558,7 @@ position: sticky;
     						 	
     						 	<% //if(rs7.getBlob("student_file").length()!=0){	%>
     					<div class="col-6 col-lg-3 col-md-3 col-sm-6  ">	
-							<a href="view_file.jsp"
+							<a href="view_file_s.jsp?id=<%=rs7.getString("id")%>"
 								style="" class="text-decoration-none text-dark">
 
 								<div class="card mt-3 p-2  border-0 text-truncate" style="background:#f7f7f7;height:32vh; border-radius: 0px;">
@@ -670,7 +670,7 @@ position: sticky;
     						 	
     						 	<% if(rs3.getBlob("student_file").length()!=0){	%>
     					<div class="col-6 col-lg-3 col-md-3 col-sm-6  " style="">	
-							<a href="view_file.jsp?id=<%out.println(id);%>"
+							<a href="view_file_s.jsp?id=<%=rs3.getString("id") %>"
 								style="" class="text-decoration-none text-dark">
 
 								<div class="card mt-3 p-2  border-0 " style="background:#f7f7f7;height:32vh; border-radius: 0px;">

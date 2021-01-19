@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="java.sql.*" %>
+    <%@page import="java.time.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css" integrity="sha512-Fppbdpv9QhevzDE+UHmdxL4HoW8HantO+rC8oQB2hCofV+dWV2hePnP5SgiWR1Y1vbJeYONZfzQc5iII6sID2Q==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
+
 
 
 <style>
@@ -217,10 +219,10 @@
 			
 			<div class="row pl-2 pr-4 mt-2">
 				<div class="col-6">
-					<span><button class="btn btn-light">Java DCST</button></span>
+					<span><button class="btn btn-light" disabled>Java DCST</button></span>
 				</div>
 				<div class="col-6">
-					<span><button class="btn btn-light ">All Student</button></span>
+					<span><button class="btn btn-light " disabled>All Student</button></span>
 				</div>
 			</div>
 			
@@ -232,7 +234,7 @@
 				<!--  <form method="post"  id="assignment1" name="assign1" >-->
 				<div class="input-group">
 		    	
-		    		<input type="text"  name="points" class="form-control " id="exampleInputPassword1" style=" resize:none;overflow:hidden;background:#EDEDED;outline:none;border:none;border-bottom:1px solid black;box-shadow: none!important;border-radius:0px;">
+		    		<input type="text"  name="points" value="10" class="form-control " id="exampleInputPassword1" style=" resize:none;overflow:hidden;background:#EDEDED;outline:none;border:none;border-bottom:1px solid black;box-shadow: none!important;border-radius:0px;">
 		    		<div class="bar"></div>
 	  			</div>
 	  			
@@ -261,13 +263,13 @@
 				    		<div class="dropdown-divider"></div>
 				    		
 				    		<div class="dropdown-item" >
-				    			<div class="input-group input-daterange"  >
-				   					<input type='text' name="due" class="form-control w-100" autocomplete="off" id='datetime'  value="25-Jul-06" />
+				    			<div class="input-group input-daterange" data-provide="datepicker" >
+				   					<input type='text' name="due" class="form-control w-100"  id='datetime'  value="<%=LocalDate.now()%>" />
 				 				</div>
 				 			</div>
 				 			
 				 			<div class="dropdown-item" >
-				    			<div class="input-group input-daterange"  id='datetime'>
+				    			<div class="input-group input-daterange"  id='datetime1'>
 				   					<input type='text' name="time" class="form-control w-100"   value="11:59 PM" />
 				 				</div>
 				    		</div>
@@ -305,7 +307,7 @@
 </div>
 </body>
 
-<script type="text/javascript" src="/scripts/bootstrap-datetimepicker.*js"></script>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -313,7 +315,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js" integrity="sha512-D7wym1iXOnyjJbX5hKh84TRFqnXTd7Qc0biqMOmoKgTRRZjUznfgM4Fk8Ta7x8Wp3o8HyKLb3A2kgxq1S6/4fA==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
 
 
 	
@@ -324,13 +326,19 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
+	               
 	$('.input-daterange #datetime').datepicker({
-		'format': 'dd-M-yy',
-        'autoclose': true
+		format: 'mm/dd/yyyy',
+	    startDate: '0',
+	    todayHighlight:'true',
+	    autoclose:'false',
+	    weekStart:'1',
+	    beforeShowDate:'true',
+	    showOtherDays:'true'
+	   
 		
 		});
-
+	
 
 	
 	$(".text1").on("keyup input",function(){
