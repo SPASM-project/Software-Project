@@ -270,8 +270,9 @@ color:#e74c3c;
                                 <small>Error Message</small>
                               
                             </div>
+                          
                             <div class="form-group">
-                                <span class="b-forgot">Forgot your password?</span>
+                                <a href="forgot.jsp"><span class="b-forgot">Forgot your password?</span></a>
                             </div>
                             <button type=" button" id="sbtn"    class="btn btn-info sign_up">Sign Up</button>
                              <button type=" button" id="sbtn1"   class="btn btn-info sign_up1">Sign In</button>

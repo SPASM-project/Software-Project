@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.SPASM.model.AssignmentMarksModel;
+import com.SPASM.model.ForgotModel;
 import com.SPASM.model.PostMsg;
 import com.SPASM.model.RegistrationModel;
 import com.SPASM.model.ReplyModel;
@@ -16,6 +17,7 @@ import com.SPASM.model.StudentAssignmentViewServletModel;
 import com.SPASM.model.Teacher;
 import com.SPASM.model.TeacherAssignment;
 import com.SPASM.model.TeacherAssignmentPrivateCommentModel;
+import com.SPASM.model.UpdatePasswordModel;
 
 
 public class DatabaseDAO {
@@ -48,6 +50,35 @@ public class DatabaseDAO {
 			}
 		return false;
 	}
+	
+	
+
+	/*check for forgot password*/
+	
+	public boolean mailCheck(ForgotModel fm)
+	{
+		System.out.println(fm.getEmail()+" for checking...");
+		String sql="SELECT * FROM registration WHERE mailid=? ";
+		try {
+			
+				
+			Connection con= dbconn.Connection();
+				System.out.println("connected");
+				PreparedStatement st=con.prepareStatement(sql);
+				st.setString(1, fm.getEmail());
+				ResultSet rs=st.executeQuery();
+				
+				while(rs.next())
+				{
+					return true;
+				}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			}
+		return false;
+	}
+	
 	
 	/*registration for class*/
 	
@@ -464,6 +495,36 @@ public void insertStudentAssignmentUpdateMarks(AssignmentMarksModel c) throws Cl
 		
 		int i=st.executeUpdate();
 		System.out.println(i+"row updated student_marks table");
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
+
+public void updatePassword(UpdatePasswordModel c) throws ClassNotFoundException {
+	
+	
+	String sql="update registration set password=md5(?) where mailid=?";
+	try
+	{
+		Connection con= dbconn.Connection();
+		
+		
+		//java.util.Date utilDate = new java.util.Date();
+        //java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        //java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
+        
+		PreparedStatement st=con.prepareStatement(sql);
+		st.setString(1,c.getPassword());
+		st.setString(2,c.getEmail());
+		
+		System.out.println("d"+c.getEmail()+c.getPassword());
+		//st.setDate(3, sqlDate);
+		//st.setTime(4, sqlTime);
+		
+		
+		int i=st.executeUpdate();
+		System.out.println(i+"row updated registration table");
 	}catch(Exception e)
 	{
 		e.printStackTrace();

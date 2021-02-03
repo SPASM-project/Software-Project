@@ -95,6 +95,24 @@
   	<description></description>
   	<servlet-class>com.SPASM.controller.AssignmentMarksUpdateServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ForgotServlet</servlet-name>
+  	<display-name>ForgotServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.ForgotServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>VerifyCodeServlet</servlet-name>
+  	<display-name>VerifyCodeServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.VerifyCodeServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>UpdatePasswordServlet</servlet-name>
+  	<display-name>UpdatePasswordServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.UpdatePasswordServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ServletTeacher</servlet-name>
   	<url-pattern>/ServletTeacher</url-pattern>
@@ -154,5 +172,17 @@
   <servlet-mapping>
   	<servlet-name>AssignmentMarksUpdateServlet</servlet-name>
   	<url-pattern>/AssignmentMarksUpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ForgotServlet</servlet-name>
+  	<url-pattern>/ForgotServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>VerifyCodeServlet</servlet-name>
+  	<url-pattern>/VerifyCodeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UpdatePasswordServlet</servlet-name>
+  	<url-pattern>/UpdatePasswordServlet</url-pattern>
   </servlet-mapping>
 </web-app>
