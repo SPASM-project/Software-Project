@@ -131,7 +131,7 @@ body{
     outline:none;
 }
 .b-form .b-forgot{
-    border-bottom: 1px solid #e8e4e4;
+    /*border-bottom: 1px solid #e8e4e4;*/
     padding-bottom: 10px;
     color: #7e7e7e;
     font-size: 14px;
@@ -139,6 +139,7 @@ body{
     cursor:pointer;
     display:none;
 }
+
 .swift_right{
     display:none;
 }
@@ -272,7 +273,7 @@ color:#e74c3c;
                             </div>
                           
                             <div class="form-group">
-                                <a href="forgot.jsp"><span class="b-forgot">Forgot your password?</span></a>
+                                <a href="forgot.jsp" style="text-decoration:none;"><span class="b-forgot">Forgot your password?</span></a>
                             </div>
                             <button type=" button" id="sbtn"    class="btn btn-info sign_up">Sign Up</button>
                              <button type=" button" id="sbtn1"   class="btn btn-info sign_up1">Sign In</button>
