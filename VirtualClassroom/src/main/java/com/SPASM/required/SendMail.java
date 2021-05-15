@@ -23,8 +23,8 @@ public class SendMail {
 	}
 	public boolean sendMail(ForgotModel u) throws AddressException, MessagingException {
 		boolean test=false;
-		final String fromEmail="monish.paul2000@gmail.com";
-		final String password="9339662524";
+		final String fromEmail="spasmproject@gmail.com";
+		final String password="8420660515";
 		String toMail=u.getEmail();
 		Properties p=new Properties();
 		p.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -46,8 +46,9 @@ public class SendMail {
 		 Message message=new MimeMessage(session);
 		 message.setFrom(new InternetAddress(fromEmail));
 		 message.addRecipient(Message.RecipientType.TO, new InternetAddress(toMail));
-		 message.setSubject("User Email Verification");
-		 message.setText("Registered Successfully.Please veryfy your account using this code: "+u.getCode());
+		 message.setSubject(u.getCode()+" is your e-Ducation account recovery code");
+		 message.setText("We received a request to reset your e-Ducation password.\r\n"
+		 		+ "Enter the following passwords reset code: "+u.getCode());
 		 Transport.send(message);
 		 test=true;
 		return test;

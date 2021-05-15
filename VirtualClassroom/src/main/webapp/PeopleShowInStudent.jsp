@@ -61,9 +61,9 @@
 			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
 			
 			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand ">
+				<div  class="navbar-brand text-muted">
 					
-				<%=classname %>
+				<%=classname.toUpperCase()%>
 					
 				</div>
 			</div>
@@ -130,6 +130,8 @@
 		<div class="row mt-3 text-muted">
 			<div class="col-12 col-md-10 offset-0 offset-md-1 col-lg-6 offset-lg-3 ">
 				<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+				<span class="fa fa-video-camera ml-4  float-right" style="line-height:40px;color:gray;" aria-hidden="true"></span>
+				<span class="fa fa-phone  float-right" style="line-height:40px;color:gray;" aria-hidden="true"></span>
 				<div class="   p-2 " style="margin-left:37px;">	
 			
 					

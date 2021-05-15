@@ -154,9 +154,9 @@ String authorStudent; %>
 			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
 			
 			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand ">
+				<div  class="navbar-brand text-muted">
 					
-				<%=classname %>
+				<%=classname.toUpperCase()%>
 					
 				</div>
 			</div>
@@ -247,7 +247,7 @@ String authorStudent; %>
 				<div class="text-center text-white ">
 
 					<div class=" fa fa-chevron-down" id="down-arrow"
-						style="cursor: pointer; margin-top: 70px;"></div>
+						style="cursor: pointer; margin-top: 3vh;"></div>
 
 				</div>
 

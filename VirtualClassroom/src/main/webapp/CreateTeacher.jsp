@@ -141,9 +141,9 @@ String author;int ii;String title; %>
 			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
 			
 			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand ">
+				<div  class="navbar-brand text-muted">
 					
-				<%=classname %>
+				<%=classname%>
 					
 				</div>
 			</div>
@@ -152,7 +152,7 @@ String author;int ii;String title; %>
 					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="">Grades</a>
+					<a class="nav-link nav-item " href="TeacherAssignmentGrade.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Grades</a>
 				
 				</nav>
 			</div>
@@ -236,7 +236,7 @@ String author;int ii;String title; %>
 				<div class="text-center text-white ff ">
 
 					<div class=" fa fa-angle-down fa-2x" id="down-arrow"
-						style="cursor: pointer; margin-top: 40px;"></div>
+						style="cursor: pointer; margin-top: 3vh;"></div>
 
 				</div>
 

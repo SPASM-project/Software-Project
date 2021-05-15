@@ -93,7 +93,7 @@ if(b) {
 				</div>
 			</div>
 			<div class="card-footer text-right" >
-				<input class="btn btn-primary btn-sm" type="submit" value="Continue">
+				<input class="btn btn-primary btn-sm" id="continue" disabled type="submit" value="Continue">
 				<a class="btn btn-outline-info btn-sm" href="ClassLogin.jsp" role="button">Cancel</a>
 			</div>
 			</form>
@@ -120,4 +120,31 @@ if(b) {
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#exampleInputPassword1").on("keyup input",function(){
+		
+		var empty=false;
+	
+
+		$("#exampleInputPassword1").each(function(){
+		if($(this).val()=='')
+			{
+		
+				empty=true;
+			}
+		});
+		if(empty)
+			{
+				$('#continue').attr('disabled', 'disabled');
+			}
+		else{
+			$('#continue').removeAttr('disabled');
+			}
+		
+		});
+});
+
+
+</script>
 </html>

@@ -379,7 +379,7 @@ $(document).ready(function(){
 	        $('.b-forgot').show(); // forgot option show
 	        $('.form_title').html('Sign in to Guide').css('margin-top','100px'); // form title text change
 	        $('.b-subtext').html('or use your email account'); // form sub title text change
-	        $('.user_title').html('Hello, Friend'); // user title text change
+	        $('.user_title').html('Hello, Student'); // user title text change
 	        $('.user_subTitle').html('Enter your personal details </br> and start journey with us.'); // user sub title text change
 	        $('.b-title').css('margin-top','100px'); // user section add margin top in css
 	        $('.swift_left').hide(); // default logo hide

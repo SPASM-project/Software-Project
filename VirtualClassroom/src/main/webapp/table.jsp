@@ -52,13 +52,15 @@
 		%>
 		
 <div class="container-fluid">
-<div class="row">
+
+<!-- creation of fixed nav bar -->
+		<div class="row">
 			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
 			
 			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand text-muted">
+				<div  class="navbar-brand ">
 					
-				<%=classname.toUpperCase() %>
+				<%=classname %>
 					
 				</div>
 			</div>
@@ -73,74 +75,141 @@
 			</div>
 			
 			</nav>
+		</div>
+		
+<!-- end of nav bar -->
 </div>
-
-<div class="row" style="margin-top:60px;">
-<div class="table-responsive">
-<table class="table table-hover table-striped table-bordered">
-
-	
-	<%
+<!-- end of first row -->
+<!-- database for student class column-->
+<%
 			
-	String quary1="select * from assignment  where classcode=? order by id" ;
+	String quary2="select * from student_class inner join teacher on student_class.scode=teacher.classcode where classcode=? order by student_class.id" ;
 	try {
-	Connection con1= dbconn.Connection();
+	Connection con4= dbconn.Connection();
 			
 	//System.out.println("connected create teacher..");//connection
 
-	PreparedStatement st1 = con1.prepareStatement(quary1);
-	st1.setString(1, code);
+	PreparedStatement st4 = con4.prepareStatement(quary2);
+	st4.setString(1, code);
 	
-	ResultSet rs1 = st1.executeQuery();
+	ResultSet rs4 = st4.executeQuery();
 
-	if (!rs1.isBeforeFirst()) {
+	if (!rs4.isBeforeFirst()) {
 	%>
+		<div>
 		
 			<%
 			out.print("");
 			%>
+		</div>
+		
 		
 		
 	<%} %>
-	
-	
+		
+<div class="container-fluid" style="margin-top:66px;">
+<div class="row">
+<div class="col-lg-2 col-md- ">
+	<div class="row border pt-5 pb-4 ">
+		<div class="col-12">
+			<p class="mt-2">Student Name</p>
+		</div>
+	</div>
+	<div class="row border p-3">
+		<div class="col-12">
+			<p>Class Avarage</p>
+		</div>
+	</div>
+
 	<% 
-				
-		while (rs1.next()) {
-			System.out.println("title2:"+rs1.getString("title"));
-			assignId=rs1.getInt("id");
-			System.out.println("assignId2"+assignId);
+		
+		while (rs4.next()) {
+		System.out.println(rs4.getString("sname"));
+		
 	%>
-	<!-- --first -->
-	<!-- database for  assignment fetch-->
-
-
-		<thead class="thead-dark">
-		<tr>
-			<th scope="col" class="text-light" style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:17px;font-weight: bold;font-style: italic;">Student Name</th>
-			
 	
-      		
-			<th scope="col" class="text-light" style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:17px;font-weight: bold;font-style: italic;">
-				<p><%=rs1.getDate("date").toLocaleString().subSequence(0, 7) %></p>
-				<p><%=rs1.getString("title") %>	</p>	
-				<p>out of <%= rs1.getString("points") %></p>
-			</th>
-	
-		</tr>
-	</thead>
-	
-	
-	
-	
-	
-	<!-- -end first -->
-	
-	
-	<tbody>
-	<!-- --neww -->
-	
+		
+		<div class="row" >
+			<div class="col-12 border p-3">
+				<span class="fa fa-user-circle fa-2x float-left " style="color:gray;line-height: 43px;" aria-hidden="true"></span>
+				<div class=" p-2 mb-1 " style="margin-left:37px;">	
+					<% 	out.println(rs4.getString("sname"));%>
+				</div>
+			</div>
+		</div>
 	<%
+	}
+	rs4.close();
+	st4.close();
+	con4.close();
+	} catch (Exception e) {
+	e.printStackTrace();
+	}
+					
+	%>
+</div>		
+
+<!-- end of first column -->
+
+
+<!-- database for  assignment fetch-->
+<%
+			
+	String quary3="select * from assignment  where classcode=?" ;
+	try {
+	Connection con5= dbconn.Connection();
+			
+	//System.out.println("connected create teacher..");//connection
+
+	PreparedStatement st5 = con5.prepareStatement(quary3);
+	st5.setString(1, code);
+	
+	ResultSet rs5 = st5.executeQuery();
+
+	if (!rs5.isBeforeFirst()) {
+	%>
+		<div>
+		
+			<%
+			out.print("");
+			%>
+		</div>
+		
+		
+		
+	<%} %>
+		
+
+
+	
+
+	<% 
+		
+		while (rs5.next()) {
+		System.out.println("title:"+rs5.getString("title"));
+		assignId=rs5.getInt("id");
+		System.out.println("assignId"+assignId);
+	%>
+	<div class="col-1  ">
+		<div class="row border pt-4 pb-4">
+			<div class="col-12 text-left text-muted">
+				<%=rs5.getDate("date").toLocaleString().subSequence(0, 7) %>
+			</div>
+			<div class="col-12  text-primary text-left font-weight-bold">
+				<%=rs5.getString("title") %>
+			</div>
+			
+			<div class="col-8 offset-2 border-bottom"></div>
+			
+			<div class="col-12 text-muted text-left">
+				out of <%=rs5.getString("points") %>
+			</div>
+		</div>
+		
+	
+	
+	<!-- database for avarage calculation-->
+<%
 			
 	String quary4="select avg(marks) as avarage from student_marks inner join student_assignment_upload on student_marks.stu_assign_id=student_assignment_upload.id where assign_id=? and student_assignment_upload.classcode=?" ;
 	try {
@@ -156,25 +225,35 @@
 
 	if (!rs6.isBeforeFirst()) {
 	%>
+		<div>
+		
 			<%
 			out.print("");
 			%>
+		</div>
+		
 		
 		
 	<%} %>
-		<% 
+		
+
+
+	
+
+	<% 
 		
 		while (rs6.next()) {
 		System.out.println("Avarage:"+rs6.getFloat("avarage"));
 		
 	%>
-	<tr class="table-info">
-		
-	<th scope="row" class="text-success" style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:15px;font-weight: bold;font-style: italic;">Class Avarage</th>
 	
-	<td style="font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:17px;font-weight: bold;font-style: italic;"><%=rs6.getFloat("avarage")%></td>
-			
-	</tr>
+		<div class="row border pt-4 pb-4">
+		<div class="col-12">
+			<%=rs6.getFloat("avarage")%>
+		</div>
+		</div>
+		
+	
 	<%
 	}
 	rs6.close();
@@ -185,16 +264,8 @@
 	}
 					
 	%>
-	
-	<!-- assignment marks -->
-	
-	
-	
-	
-	<!-- -enddd nn -->
-	
-	<!-- -end -->
-	<%
+	<!-- database for second row-->
+<%
 			
 	//String quary5="select * from student_marks right outer join student_assignment_upload on student_marks.stu_assign_id=student_assignment_upload.id where assign_id=? and student_assignment_upload.classcode=?" ;
 	//String quary5="select * from student_marks right outer join student_assignment_upload on student_marks.stu_assign_id=student_assignment_upload.id right join student_class on (select sname where student_class.scode=?)=student_assignment_upload.author where assign_id=? and student_assignment_upload.classcode=?";
@@ -213,36 +284,49 @@
 
 	if (!rs7.isBeforeFirst()) {
 	%>
-		
+		<div>
 		
 			<%
 			out.print("");
 			%>
-		
+		</div>
 		
 	<%} %>	
+		
 	
+
+
+	
+
 	<% 
 		
 		while (rs7.next()) {
 		System.out.println("marks:"+rs7.getFloat("marks"));
-		
 		//if(rs7.getFloat("marks")!=""){
 	%>
 	
+		<%if(rs7.getString("marks")==null && rs7.getString("student_file_name")==null) {%>
 	
-	<tr >
-	    
-	      	<th scope="row" style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:12px;font-weight: lighter;"><%=rs7.getString("sname") %></th>
-			<%if(rs7.getString("marks")==null && rs7.getString("student_file_name")==null) {%>
-			<td style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:12px;font-weight: lighter;"><p class="text-danger">Missing</p></td>
-			<%}else if(rs7.getString("student_file_name")!=null && rs7.getString("marks")==null){ %>
-			<td style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:12px;font-weight: lighter;"><p class="text-primary">Not Assigned</p></td>
-			<%}else{ %>
-			<td style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:12px;font-weight: lighter;"><%=rs7.getFloat("marks")%></td>
-			<%} %>
-			
-	</tr>
+		<div class="row border pt-4 pb-4">
+		<div class="col-12">
+			not assigned
+		</div>
+		</div>
+		<%}else if(rs7.getString("student_file_name")!=null && rs7.getString("marks")==null){ %>
+		<div class="row border pt-4 pb-3">
+		<div class="col-12">
+			<p class="text-danger">Not Assigned</p>
+		</div>
+		</div>
+		
+		<%}else{ %>
+		<div class="row border pt-4 pb-4">
+		<div class="col-12">
+			<p class="text-dark"><%=rs7.getFloat("marks")%></p>
+		</div>
+		</div>
+		<%} %>
+		
 	
 	<%
 	}
@@ -254,23 +338,32 @@
 	}
 					
 	%>
-	</tbody>
+	
+	
+	</div>
+	
+	
+	
+	
 	<%
 	}
-	rs1.close();
-	st1.close();
-	con1.close();
+	rs5.close();
+	st5.close();
+	con5.close();
 	} catch (Exception e) {
 	e.printStackTrace();
 	}
-	%> 
-	
-	
-	
-	
-</table>
+					
+	%>
+
+
+
+
+
+
+
+		
 </div>
-</div>	
 </div>
 
 

@@ -171,7 +171,7 @@ session.setAttribute("mailId", mailid);
 
 <div class="row  card" style="border-radius:0px;border-left: none;border-right: none;" >
 	<div class="col-sm-12">
-		<h1 class="text-left">e-Ducation</h1>
+		<h1 class="text-left text-muted">e-Ducation</h1>
 		</div>
 </div>
 
