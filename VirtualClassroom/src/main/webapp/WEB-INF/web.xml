@@ -113,6 +113,24 @@
   	<description></description>
   	<servlet-class>com.SPASM.controller.UpdatePasswordServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AttendenceServlet</servlet-name>
+  	<display-name>AttendenceServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.AttendenceServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AvarageAttendanceServlet</servlet-name>
+  	<display-name>AvarageAttendanceServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.AvarageAttendanceServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Test</servlet-name>
+  	<display-name>Test</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.Test</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ServletTeacher</servlet-name>
   	<url-pattern>/ServletTeacher</url-pattern>
@@ -184,5 +202,17 @@
   <servlet-mapping>
   	<servlet-name>UpdatePasswordServlet</servlet-name>
   	<url-pattern>/UpdatePasswordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AttendenceServlet</servlet-name>
+  	<url-pattern>/AttendenceServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AvarageAttendanceServlet</servlet-name>
+  	<url-pattern>/AvarageAttendanceServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Test</servlet-name>
+  	<url-pattern>/Test</url-pattern>
   </servlet-mapping>
 </web-app>

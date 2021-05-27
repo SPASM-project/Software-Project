@@ -53,7 +53,7 @@
 				 <div class="form-group mt-2 " >
         			<input class="form-control " id="mail" type="text" name="email" placeholder="Email" style="box-shadow: none;">
                                 
-                                
+                     <small class="text-danger ml-2"><% if(session.getAttribute("error")!=null) out.println(session.getAttribute("error")); %></small>          
       			</div>
 				
 				

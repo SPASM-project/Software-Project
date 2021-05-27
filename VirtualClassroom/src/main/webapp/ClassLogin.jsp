@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%if(request.getParameter("mail")!=null) response.sendRedirect("StartingPage.jsp?mail="+session.getAttribute("mail")); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -206,6 +208,8 @@ color:#e74c3c;
 
 <title>e-Ducation</title>
 </head>
+
+
 <body class="bg-secondary">
 <div class="container">
     <div class="row align-items-center justify-content-center">

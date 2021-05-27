@@ -76,15 +76,35 @@ if(fm.getEmail()==null){
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
 	 $('#continue').click(function(){
 
-		 checkInputs();
+		 //checkInputs();
+		 var pass=document.getElementById("exampleInputPassword1");
+		
+		var passValue=pass.value.trim();
+		if(passValue ==='')
+		{
+		
+		setErrorFor(pass,'Password cannot be blank');
+		return false;
+		
+	}
+	else if(!isPass(passValue))
+		{
+		setErrorFor(pass,'Please chosse a stronger password,it should contain atleast uppercase,lowercase number & charecter');
+		return false;
+	}
+	else 
+		{
+			
+			setSuccessFor(pass);
+			callServlet();
+			return true;
+		}
 		
 		 });
 
@@ -113,26 +133,7 @@ $(document).ready(function(){
 	
 	
 	function checkInputs(){
-		var pass=document.getElementById("exampleInputPassword1");
-		
-		var passValue=pass.value.trim();
-		if(passValue ==='')
-		{
-		
-		setErrorFor(pass,'Password cannot be blank');
-		
-	}
-	else if(!isPass(passValue))
-		{
-		setErrorFor(pass,'Please chosse a stronger password,it should contain atleast uppercase,lowercase number & charecter');
-		
-	}
-	else 
-		{
-			
-			setSuccessFor(pass);
-			callServlet();
-		}
+	
 	}
 	
 	function setErrorFor(input,message)

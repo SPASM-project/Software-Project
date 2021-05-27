@@ -141,7 +141,7 @@ String author;int ii;String title; %>
 			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
 			
 			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand text-muted">
+				<div  class="navbar-brand text-white btn btn-sm btn-info  disabled">
 					
 				<%=classname%>
 					
@@ -153,10 +153,19 @@ String author;int ii;String title; %>
 					<a class="nav-link nav-item " href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="TeacherAssignmentGrade.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Grades</a>
-				
+					<a class="btn btn-dark" href="Meeting.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>" style="margin-left:10vw;">Create Meeting</a>
+					<li class="nav-item dropdown">
+			        	<a class="nav-link dropdown-toggle btn btn-success ml-2 text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          		Attendance
+			        	</a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          <a class="dropdown-item" href="AddAttendance.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Add Attendance</a>
+				          <a class="dropdown-item" href="AttendanceList.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Attendance List</a>
+				          <a class="dropdown-item" href="AvarageAttendance.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Avarage Attendance</a>
+				        </div>
+     	 			</li>
 				</nav>
 			</div>
-			
 			</nav>
 		</div>
 		

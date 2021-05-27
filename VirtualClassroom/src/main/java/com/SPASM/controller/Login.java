@@ -19,6 +19,7 @@ public class Login extends HttpServlet {
   
   public Login() {
       super();
+      
   }
   protected void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException
   {
@@ -29,7 +30,7 @@ public class Login extends HttpServlet {
   	DatabaseDAO dao=new DatabaseDAO();
   	if(dao.loginCheck(mail, pass))
   	{
-	    	HttpSession session=request.getSession();
+  			HttpSession session=request.getSession();	
 	    	session.setAttribute("mailid", mail);
 	    	response.sendRedirect("StartingPage.jsp?mail="+mail);
   	

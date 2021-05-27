@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-      <%@page import="com.SPASM.model.ForgotModel"%>
-      <%@page import="com.SPASM.required.SendMail"%>
+<%@page import="com.SPASM.model.ForgotModel"%>
+<%@page import="com.SPASM.required.SendMail"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,6 +78,7 @@ if(b) {
 					<div class="form-group " >
 	    				
 	    				<input type="password" class="form-control mt-2" id="exampleInputPassword1" name="authcode" placeholder="Enter Code" style="box-shadow: none;">
+						<small class="text-danger"><%if(session.getAttribute("otp")!=null) out.println(session.getAttribute("otp"));%></small>	  				
 	  				</div>
 				</div>
 				
@@ -117,9 +118,7 @@ if(b) {
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#exampleInputPassword1").on("keyup input",function(){

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="java.sql.*" %>
-    <%@page import="java.time.*" %>
+<%@page import="java.sql.*" %>
+<%@page import="java.time.*" %>
+<%@page import="java.awt.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,9 +89,9 @@
   .bar:after, .bar:before
   {
   	content:"";
-  	width:0;
+  	width:1px;
   	height:1px;
-  	bottom:1px;
+  	bottom:0px;
   	background:black;
   	position: absolute;
   	transition: .5s;
@@ -147,6 +148,9 @@
 		session.setAttribute("classcode", code);
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in CreateAssignment.jsp:" + code);
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		int width = gd.getDisplayMode().getWidth();
+		int height = gd.getDisplayMode().getHeight();
 		
 		%>
 		
@@ -155,7 +159,7 @@
 <!-- headder portion -->
 
 	<div class="row border-bottom pl-4 pr-4 pt-3 pb-3" >
-		<div class="col-0  ">
+		<div class="col-0 " >
 			<span class="float-left border-none rounded-circle pb-1 pl-1 pr-1" >
 				<a type="button" href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author") %>" class="close " style="" data-dismiss="modal" aria-label="Close" id="close_page">&times;</a>
 			</span>	   
@@ -174,9 +178,9 @@
 
 <!-- body portion -->
 <form method="post" id="assignment" name="assign" enctype="multipart/form-data" >
-	<div class="row "  style="height:41vw;" >
+	<div class="row ">
 		
-		<div class="col-lg-9 col-md-6 col-sm-12 col-12  pl-md-5 pr-md-2 pl-sm-2 pr-sm-2 pl-0 pr-0 pt-4 border-right">
+		<div class="col-lg-9 col-md-6 col-sm-12 col-12  pl-md-5 pr-md-2 pl-sm-2 pr-sm-2 pl-0 pr-0 pt-4  border-right" id="cols">
 		
 			<div class="container comment   " >
 		
@@ -218,16 +222,15 @@
 			</div>
 			
 			<div class="row pl-2 pr-4 mt-2">
-				<div class="col-6">
-					<span><button class="btn btn-light" disabled>Java DCST</button></span>
-				</div>
-				<div class="col-6">
-					<span><button class="btn btn-light " disabled>All Student</button></span>
+				<div class="col-12">
+					<button class="btn btn-success" disabled><%=request.getParameter("classname") %> CLASS</button>
+				
+					<button class="btn btn-success" disabled>ALL STUDENTS</button>
 				</div>
 			</div>
 			
 			<div class="row pl-4 pr-4 mt-3">
-				<label for="exampleInputPassword1">Points</label>
+				<label for="exampleInputPassword1">Point</label>
 			</div>
 			
 			<div class="row pl-4 pr-4 w-50 mt-1">
@@ -249,7 +252,7 @@
 		  		<div class="input-group"  >
 		  		
 		  			
-		  			<input type="button" class="form-control btn btn-light btn-block  " style="box-shadow:none;" value="No due date" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+		  			<input type="button" class="form-control btn btn-dark btn-block  " style="box-shadow:none;" value="NO DUE DATE" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 		  			
 		  				<!-- add on append -->
 		  			
@@ -258,13 +261,13 @@
 		  				
 		  				<div class="dropdown-menu " style="margin-top:-39px;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.19);">
 		  					
-		  					<div class="dropdown-item" >Due date & time</div>
+		  					<div class="dropdown-item" >Due Date & Time</div>
 		  					
 				    		<div class="dropdown-divider"></div>
 				    		
 				    		<div class="dropdown-item" >
 				    			<div class="input-group input-daterange" data-provide="datepicker" >
-				   					<input type='text' name="due" class="form-control w-100"  id='datetime'  value="<%=LocalDate.now()%>" />
+				   					<input type='text' name="due" class="form-control w-100 "  id='datetime'  value="<%=LocalDate.now()%>" />
 				 				</div>
 				 			</div>
 				 			
@@ -282,14 +285,14 @@
 		  		
 		  	</div>
 	  		
-	  		<!-- end of input group of right side -->
+	  		<!-- end of input group of right side 
 	  		<div class="row pl-4 pr-4 mt-4">
 	  			<label for="exampleInputPassword1">Topic</label>
 	  		</div>
-	  		
+	  		-->
 	  		<div class="row pl-4 pr-4 rowl">
 		  		<div class="input-group ingl">
-			    	<input type="text" name="topic" class="form-control" id="exampleInputPassword" style=" resize:none;overflow:hidden;background:#EDEDED;outline:none;border:none;border-bottom:1px solid black;box-shadow: none!important;border-radius:0px;">
+			    	<input type="hidden" name="topic" class="form-control" id="exampleInputPassword" style=" resize:none;overflow:hidden;background:#EDEDED;outline:none;border:none;border-bottom:1px solid black;box-shadow: none!important;border-radius:0px;">
 			    	<!--  <div class="input-group-addon">&times;</div>-->
 			   		<div class="bar"></div>
 		 		</div>
@@ -324,7 +327,7 @@
 	
 	
 <script type="text/javascript">
-
+document.getElementById('cols').style.height=(screen.height-212)+"px";
 $(document).ready(function(){
 	               
 	$('.input-daterange #datetime').datepicker({

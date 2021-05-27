@@ -4,8 +4,12 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 
 import com.SPASM.model.AssignmentMarksModel;
+import com.SPASM.model.AttendanceModel;
 import com.SPASM.model.ForgotModel;
 import com.SPASM.model.PostMsg;
 import com.SPASM.model.RegistrationModel;
@@ -17,6 +21,7 @@ import com.SPASM.model.StudentAssignmentViewServletModel;
 import com.SPASM.model.Teacher;
 import com.SPASM.model.TeacherAssignment;
 import com.SPASM.model.TeacherAssignmentPrivateCommentModel;
+import com.SPASM.model.TestModel;
 import com.SPASM.model.UpdatePasswordModel;
 
 
@@ -529,5 +534,36 @@ public void updatePassword(UpdatePasswordModel c) throws ClassNotFoundException 
 	{
 		e.printStackTrace();
 	}
+}
+
+public void insertAttendance(List<AttendanceModel> aml,AttendanceModel am) throws SQLException {
+	String sql="insert into attendence values(NULL,?,?,?,?,?,?,?,?,NULL)";
+	Connection con= dbconn.Connection();
+	PreparedStatement st=con.prepareStatement(sql);
+	con.setAutoCommit(false);
+	for(Iterator<AttendanceModel> i=aml.iterator();i.hasNext(); ) {
+		 am=i.next();
+		 st.setString(1, am.getClasscode());
+		 st.setInt(2, am.getStu_id());
+		 st.setString(3, am.getClassname());
+		 
+		 st.setString(4, am.getStu_name());
+		 st.setString(5, am.getTeacher_name());
+		 st.setString(6, am.getPresent());
+		 
+		 st.setString(7, am.getAbsent());
+		 st.setString(8,am.getDate());
+		 st.addBatch();
+	}
+	
+	int[] u=st.executeBatch();
+	System.out.println(u+"row inserted");
+	con.commit();
+	con.setAutoCommit(true);
+	
+}
+
+public void testInsert(TestModel tm) {
+	tm.getName();
 }
 }

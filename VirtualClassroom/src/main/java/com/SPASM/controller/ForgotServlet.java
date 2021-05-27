@@ -21,17 +21,20 @@ public class ForgotServlet extends HttpServlet {
     public ForgotServlet() {
         super();
         
+        
     }
     
 	DatabaseDAO dao=new DatabaseDAO();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
 		String email=request.getParameter("email");
+		HttpSession session=request.getSession();
 		ForgotModel fm=new ForgotModel();
+		
 		fm.setEmail(email);
 		if(dao.mailCheck(fm))
 	  	{
-		    	HttpSession session=request.getSession();
+		    	
 		    	session.setAttribute("mailModel", fm);
 		    	response.sendRedirect("SendOTPView.jsp");
 				out.println("mail found");
@@ -40,7 +43,8 @@ public class ForgotServlet extends HttpServlet {
 	  	else
 	  	{
 	  		//out.println("not found");
-	  		response.sendRedirect("ClassLogin.jsp");
+	  		session.setAttribute("error", "Mail not found");
+	  		response.sendRedirect("forgot.jsp");
 	  	}
 
 

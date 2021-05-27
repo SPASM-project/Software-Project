@@ -34,7 +34,9 @@ public class VerifyCodeServlet extends HttpServlet {
 			response.sendRedirect("updatePassword.jsp?email="+email);
 		}
 		else {
-			response.sendRedirect("forgot.jsp");
+			session.setAttribute("otp", "Incorrect code");
+			session.setAttribute("fm", u.getEmail());
+			response.sendRedirect("verify.jsp");
 			
 			
 		}
