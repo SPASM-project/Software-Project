@@ -15,12 +15,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="Custom CSS/CreateTeacher.css">
+<script src="../../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="../../../node_modules/sweetalert2/dist/sweetalert2.css">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
+	/*-- --added --
+	#custom-button {
+  padding: 10px;
+  color: white;
+  background-color: #009578;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#custom-button:hover {
+  background-color: #00b28f;
+}
+*/
+#custom-text {
+  margin-left: 10px;
+  font-family: sans-serif;
+  color: #aaa;
+}
+	
+	
+	
+	/*end*/
 	
   	.comment textarea
   	{
@@ -97,6 +122,16 @@
 .com:hover{
 	background:#f7f7f7;
 	}
+	
+	.navbar-collapse ul{
+		float:none;
+		text-align:center;
+	}
+	
+	.navbar-collapse li{
+		display:inline-block;
+		float:none;
+			}
 	</style>
 
 <title>
@@ -104,6 +139,7 @@
 		out.println(request.getParameter("classname"));
 	%>
 </title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 
@@ -135,42 +171,68 @@ String author;int ii;String title; %>
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in CreateTeacher.jsp:" + code);
 		%>
-	<div class="conatainer-fluid">
+	
 		<!-- creation of fixed nav bar -->
-		<div class="row">
-			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
+		
+<nav class="navbar navbar-expand-lg navbar-light  bg-white  fixed-top border-bottom"  style="font-family: sans-serif; font-size: 14px; font-weight: 600;">
+  <a class="navbar-brand" href="#">
+  <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+  <%=classname%>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav" >
+      <li class="nav-item">
+        <a class="nav-link" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="TeacherAssignmentGrade.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Grades</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Attendance
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="AddAttendance.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Add Attendance</a>
+		<a class="dropdown-item" href="AttendanceList.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Attendance List</a>
+		   <a class="dropdown-item" href="AvarageAttendance.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Avarage Attendance</a>
+        					<a class="dropdown-item" href="whiteboard.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>" >White Board</a>
+					<a class="dropdown-item" href="Meeting.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>" >Create Meeting</a>
+        </div>
+      </li>
+      
+    </ul>
+    
+  </div>
+</nav>
+		
+		
+		
+		
+		
+		
+		
+		
+		
 			
-			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand text-white btn btn-sm btn-info  disabled">
-					
-				<%=classname%>
-					
-				</div>
-			</div>
-			<div class="offset-lg-2 offset-0 col-lg-7 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
-				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
-					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="TeacherAssignmentGrade.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Grades</a>
-					<a class="btn btn-dark" href="Meeting.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>" style="margin-left:10vw;">Create Meeting</a>
-					<li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle btn btn-success ml-2 text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          		Attendance
-			        	</a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				          <a class="dropdown-item" href="AddAttendance.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Add Attendance</a>
-				          <a class="dropdown-item" href="AttendanceList.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Attendance List</a>
-				          <a class="dropdown-item" href="AvarageAttendance.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Avarage Attendance</a>
-				        </div>
-     	 			</li>
-				</nav>
-			</div>
-			</nav>
-		</div>
+			
+			
+			
+				
+
+				
 		
 		<!-- end of nav bar -->
-	</div>
+	
 		
 		<div class="container-fluid"> <!-- 1st div.... -->
 		
@@ -364,9 +426,12 @@ String author;int ii;String title; %>
 									<div class="bar"></div>
 								</div>
 								
-								<label>choose file</label>
-								<input type="file" name="file_uploaded"  multiple="multiple" >
 								
+								<input type="file" name="file_uploaded" id="file" onchange="return fileValidation()" hidden="hidden">
+								<!-- --added -->
+								<button type="button" id="custom-button" class="btn btn-outline-secondary"><i class="fa fa-paperclip" aria-hidden="true"></i>  Add</button>
+								<span id="custom-text">No file chosen, yet.</span>
+								<!-- e -->
 								<input type="hidden" name="authorName" value="<%=author %>">
 							</form>
 							<div class="clearfix">
@@ -906,15 +971,57 @@ String author;int ii;String title; %>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 
 
 	<!-- clint side manupulation using jquery and js.... -->
-	
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 <script type="text/javascript">
+<!-- --added -->
+const realFileBtn = document.getElementById("file");
+const customBtn = document.getElementById("custom-button");
+const customTxt = document.getElementById("custom-text");
+
+customBtn.addEventListener("click", function() {
+  realFileBtn.click();
+});
+
+realFileBtn.addEventListener("change", function() {
+  if (realFileBtn.value) {
+    customTxt.innerHTML = realFileBtn.value.match(
+      /[\/\\]([\w\d\s\.\-\(\)]+)$/
+    )[1];
+  } else {
+    customTxt.innerHTML = "No file chosen, yet.";
+  }
+});
+
+
+
+function fileValidation(){
+    var fileInput = document.getElementById('file');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.pdf)$/i;
+    if(!allowedExtensions.exec(filePath)){
+       
+        Swal.fire('Oops...', 'Please upload file having extensions .pdf only.!', 'error');
+        fileInput.value ='';
+        filePath='';
+        return false;
+    }else{
+        	if(fileInput.files[0].size/(1024*1024)>=8){
+        		Swal.fire('Oops...', 'File size must be smaller than 8..!', 'error');
+        		fileInput.value ='';
+                filePath='';
+                return false;
+        	}
+        	else{
+        		return true;
+        	}
+        }
+    }
+<!-- --end -->
 	$(document).ready(function() {
 
 

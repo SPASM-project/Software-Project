@@ -16,7 +16,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
     
    <title>e-Ducation</title>
-   <link rel="shortcut icon" type="image/png" href="favicon.png">
+   <link rel="icon" type="image/x-icon" href="favicon.ico">
+   
     
   <link rel="stylesheet" href="Custom CSS/CreateTeacher.css">
   

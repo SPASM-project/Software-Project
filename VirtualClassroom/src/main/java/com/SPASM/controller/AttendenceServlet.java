@@ -30,6 +30,7 @@ public class AttendenceServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		PrintWriter out=response.getWriter();
+		HttpSession session=request.getSession();
 		String date=request.getParameter("date");
 		System.out.print(date);
 		String present[]=request.getParameterValues("present");
@@ -127,7 +128,14 @@ public class AttendenceServlet extends HttpServlet {
 				}
 				
 				int[] u=st.executeBatch();
-				System.out.println(u+"row inserted");
+				if(u.length==stu_id.length)
+				{
+						session.setAttribute("status","success");
+					
+				}else {
+					session.setAttribute("status","error");
+				}
+				System.out.println(u.length+"=="+stu_id.length+"row inserted");
 				con.commit();
 				con.setAutoCommit(true);
 				
@@ -141,9 +149,10 @@ public class AttendenceServlet extends HttpServlet {
 		
 		
 		/*create session*/
-		HttpSession session=request.getSession();
+		
 		String code=(String) session.getAttribute("classcode");
 		String classn=(String) session.getAttribute("classname");
+		session.setAttribute(code, classn);
 		System.out.println("assign to:"+classcode);
 		/*end*/
 		response.sendRedirect("AddAttendance.jsp?code="+code+"&classname="+classn+"&author="+teacher_name[0]);//URL re-writing

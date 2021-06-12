@@ -35,7 +35,7 @@ position: sticky;
 
 </style>
 <title><%out.println(request.getParameter("classname"));%></title>
-
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 <%

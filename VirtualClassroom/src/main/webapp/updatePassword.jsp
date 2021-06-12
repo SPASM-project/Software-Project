@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>e-Ducation</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 

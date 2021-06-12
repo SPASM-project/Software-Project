@@ -19,6 +19,7 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 <title><%out.println(request.getParameter("classname"));%></title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <!-- declaration.... -->
 <%!String code; %>
@@ -32,7 +33,7 @@
 <%
 	code = request.getParameter("code");
 	String classname=request.getParameter("classname");
-		
+
 	session.setAttribute("classcode", code);
 	session.setAttribute("classname", classname);
 	System.out.println("classcode in People.jsp:" + code);
@@ -42,13 +43,14 @@
 
 <body>
 <div class="container">
-<form action="AttendenceServlet" method="post">
+<form s method="post" id="attendance">
 <!-- data-provide="datepicker"  -->
 	<div class="row ">
 	<div class="col-4 p-2 offset-4">
 	<div class="form-group input-daterange" >
 			<label for="datetime">Date</label>
 			<input type='date' name="date" class="form-control "  id='datetime'  value="<%=LocalDate.now()%>" />
+			
 	</div>
 	</div>
 	</div>
@@ -122,7 +124,7 @@
 		%>
 		<tr>
 		<td colspan=5 class="text-center">
-		<input type="submit" class="btn btn-warning" value="Save" id="btn">
+		<button type="submit" class="btn btn-warning" value="Save" id="btn" onclick="servletCall('post')">SAVE</button>
 		</td>
 		</tr>
 		
@@ -138,14 +140,25 @@ e.printStackTrace();
 
 
 </table>
+
 </div>
 </div>
 </div>
 
 </form>
+
 </div>
 
-
+<input type="hidden" value='<%out.println(session.getAttribute("message"));%>' id="message">
+<%System.out.println("message"+session.getAttribute("message")); %>
+<%if(session.getAttribute("status") == "success"){ %>
+<script>
+Swal.fire('Good Job',
+		 'Successfully Saved..!', 
+		 'success'
+		 );   
+</script>
+<%} %>
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -155,8 +168,11 @@ e.printStackTrace();
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 <script type="text/javascript">
+
+
+
  $(document).ready(function(){
 	// $('#newrows').click(function(){
 		//var add='<tr>'
@@ -192,5 +208,26 @@ e.printStackTrace();
 			//});
 	 
  });
+ function servletCall(methodType)
+	{
+		document.getElementById("attendance").action="AttendenceServlet";
+		document.getElementById("attendance").method=methodType;
+		document.getElementById("attendance").submit();
+		if(document.getElementById('message').value!=""){
+			
+	    	//alert(document.getElementById('message').value);
+			//sweetAlert();
+			 return false;  
+		}
+		
+		
+		}
+ 
+ //function sweetAlert(){
+	 //Swal.fire('Good Job',
+			 //'Successfully Saved..!', 
+			// 'success'
+			// );   
+ //}
 </script>
 </html>

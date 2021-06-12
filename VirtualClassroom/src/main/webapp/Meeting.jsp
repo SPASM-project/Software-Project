@@ -16,6 +16,7 @@
 
   <script src='https://meet.jit.si/external_api.js'></script>
   <title><%out.println(request.getParameter("classname"));%></title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <%
 		if (request.getParameter("code") == null) {
