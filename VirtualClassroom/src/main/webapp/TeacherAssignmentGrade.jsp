@@ -20,6 +20,15 @@
 
 <title><%out.println(request.getParameter("classname"));%></title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@media (min-width: 768px) {
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+  }
+}
+</style>
 </head>
 <body>
 <%
@@ -50,30 +59,59 @@
 		
 		System.out.println("classcode in People.jsp:" + code);
 		%>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top "  style="font-family: sans-serif; font-size: 14px; font-weight: 600;">
+
+  <div class="navbar-header">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+  
+  
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <ul class="nav navbar-nav">
+      <li><a class="navbar-brand" href="#">
+        <i class="fa fa-graduation-cap text-primary" aria-hidden="true"></i>
+        <%=classname%>
+        </a></li>
+  </ul>
+    <ul class="nav navbar-nav navbar-center" >
+      <li class="nav-item">
+        <a class="nav-link" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="TeacherAssignmentGrade.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Grades</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Attendance
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="AddAttendance.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Add Attendance</a>
+		<a class="dropdown-item" href="AttendanceList.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Attendance List</a>
+		   <a class="dropdown-item" href="AvarageAttendance.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Avarage Attendance</a>
+        					<a class="dropdown-item" href="whiteboard.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>" >White Board</a>
+					<a class="dropdown-item" href="Meeting.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>" >Create Meeting</a>
+        </div>
+      </li>
+      
+    </ul>
+    <ul class="nav navbar-nav navbar-right ml-auto">
+      <li><a class="btn btn-light" href="StartingPage.jsp?mail=<%=session.getAttribute("mailid")%>"><i class="fa fa-2x fa-arrow-circle-left text-primary" aria-hidden="true"></i></a></li>
+  </ul>
+  </div>
+</nav>
 		
 <div class="container-fluid">
-<div class="row">
-			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
-			
-			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand text-muted">
-					
-				<%=classname.toUpperCase() %>
-					
-				</div>
-			</div>
-			<div class="offset-lg-2 offset-0 col-lg-7 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
-				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
-					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="TeacherAssignmentGrade.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Grades</a>
-				
-				</nav>
-			</div>
-			
-			</nav>
-</div>
+
 
 <div class="row" style="margin-top:60px;">
 <div class="table-responsive">
@@ -115,7 +153,7 @@
 	<!-- database for  assignment fetch-->
 
 
-		<thead class="thead-dark">
+		<thead class="" style="background-color:#5cb85c;">
 		<tr>
 			<th scope="col" class="text-light" style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:17px;font-weight: bold;font-style: italic;">Student Name</th>
 			
@@ -170,7 +208,7 @@
 	%>
 	<tr class="table-info">
 		
-	<th scope="row" class="text-success" style=" font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:15px;font-weight: bold;font-style: italic;">Class Avarage</th>
+	<th scope="row"  style=" color: #27401F; font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:15px;font-weight: bold;font-style: italic;">Class Avarage</th>
 	
 	<td style="font-family: sans-serif, Helvetica Neue, Lucida Grande, Arial;size:17px;font-weight: bold;font-style: italic;"><%=rs6.getFloat("avarage")%></td>
 			

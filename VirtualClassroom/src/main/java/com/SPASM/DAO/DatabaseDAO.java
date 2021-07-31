@@ -563,6 +563,30 @@ public void insertAttendance(List<AttendanceModel> aml,AttendanceModel am) throw
 	
 }
 
+public boolean deleteClassroom(String code) {
+	System.out.println(code+" for delete...");
+	String sql="DELETE FROM virtualclassroom.teacher where classcode=?";
+	try {
+		
+			
+			Connection con= dbconn.Connection();
+			System.out.println("connected");
+			PreparedStatement st=con.prepareStatement(sql);
+			st.setString(1, code);
+			int rs=st.executeUpdate();
+			
+			
+			if(rs > 0) {
+				return true;
+			}
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+	return false;
+	
+}
+
 public void testInsert(TestModel tm) {
 	tm.getName();
 }

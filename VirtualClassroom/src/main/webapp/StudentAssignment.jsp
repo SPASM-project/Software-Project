@@ -36,6 +36,14 @@
 	background:rgb(0,0,255,0.1);
 	cursor:pointer;
 	}
+	
+	@media (min-width: 768px) {
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+  }
+}
 </style>
 	
 <title><%out.println(request.getParameter("classname"));%></title>
@@ -66,38 +74,44 @@
 		System.out.println("classcode in People.jsp:" + code);
 		%>
 
-<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top "  style="font-family: sans-serif; font-size: 14px; font-weight: 600;">
 
-<!-- creation of fixed nav bar -->
-		<div class="row" style="margin-top:83px;">
-			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
-			
-			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand ">
-					
-				<%=classname %>
-					
-				</div>
-			</div>
-			<div class="offset-lg-3 offset-0 col-lg-9 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
-				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
-					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">People</a>&nbsp&nbsp
-					
-				</nav>
-			</div>
-			
-			
-			</nav>
-		</div>
-		
-<!-- end of nav bar -->
+  <div class="navbar-header">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 </div>
-<!-- end of first row -->
+  
+  
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <ul class="nav navbar-nav">
+      <li><a class="navbar-brand" href="#">
+             <i class="fa fa-graduation-cap text-info" aria-hidden="true"></i>
+        <%=classname%>
+        </a></li>
+  </ul>
+    <ul class="nav navbar-nav navbar-center" >
+      <li class="nav-item">
+        <a class="nav-link" href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Stream</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Classwork</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">People</a>
+      </li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right ml-auto">
+     <li><a class="btn btn-light" href="StartingPage.jsp?mail=<%=mailId%>"><i class="fa fa-2x fa-arrow-circle-left text-info" aria-hidden="true"></i></a></li>
+  </ul>
+  </div>
+</nav>
 
 
-<div class="container p-2">
+<div class="container p-2" style="margin-top:83px;">
 
 
 <!-- end of 2nd row -->

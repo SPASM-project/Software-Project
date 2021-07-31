@@ -101,6 +101,14 @@
 	.com:hover{
 	background:#f7f7f7;
 	}
+	
+	@media (min-width: 768px) {
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+  }
+}
 	</style>
 
 <title><%out.println(request.getParameter("classname"));%></title>
@@ -148,32 +156,44 @@ String authorStudent; %>
 		%>
 		<!-- creationj of fixed nav bar -->
 		
-		<div class="conatainer-fluid">
-		<!-- creation of fixed nav bar -->
-		<div class="row">
-			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
-			
-			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
-				<div  class="navbar-brand text-muted">
-					
-				<%=classname.toUpperCase()%>
-					
-				</div>
-			</div>
-			<div class="offset-lg-3 offset-0 col-lg-9 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
-				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
-					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">People</a>&nbsp&nbsp
-					
-				</nav>
-			</div>
-			
-			</nav>
-		</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top "  style="font-family: sans-serif; font-size: 14px; font-weight: 600;">
+
+  <div class="navbar-header">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+  
+  
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <ul class="nav navbar-nav">
+      <li><a class="navbar-brand" href="#">
+             <i class="fa fa-graduation-cap text-info" aria-hidden="true"></i>
+        <%=classname%>
+        </a></li>
+  </ul>
+    <ul class="nav navbar-nav navbar-center" >
+      <li class="nav-item">
+        <a class="nav-link" href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Stream</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Classwork</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">People</a>
+      </li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right ml-auto">
+      <li><a class="btn btn-light" href="StartingPage.jsp?mail=<%=mailId%>"><i class="fa fa-2x fa-arrow-circle-left text-info" aria-hidden="true"></i></a></li>
+  </ul>
+  </div>
+</nav>
 		
 		<!-- end of nav bar -->
-	</div>
+	
 			
 		<div class="container-fluid"> <!-- 1st div.... -->
 		
@@ -210,13 +230,13 @@ String authorStudent; %>
 			}
 				while (rs.next()) {
 		%>
-		<div class="container  pl-md-5 pr-md-5 ">
-			<div class="container  bg-info   shadow-sm first-div-radius"
+		<div class="container pl-md-5 pr-md-5 ">
+			<div class="container  bg-info   shadow-sm first-div-radius p-4"
 				id="div1" style="height: 220px;margin-top:86px;">
 
 				<h5 class="text-white">
 					<%
-						out.println(rs.getString("classname"));
+						out.println(rs.getString("subject"));
 					%>
 				</h5>
 
@@ -227,7 +247,7 @@ String authorStudent; %>
 				</p>
 
 				<div class="d-inline-block">
-					<p class="text-white">class code</p>
+					<p class="text-white">Class Code</p>
 				</div>
 
 				<div class="d-inline-block">
@@ -258,10 +278,10 @@ String authorStudent; %>
 			<div class="container bg-white shadow-sm" id="div2"
 				style="display: none;">
 				<div class="d-inline-block">
-					<p class="text-black">subject:</p>
+					<p class="text-black font-weight-bold">Subject: </p>
 				</div>
 				<div class="d-inline-block">
-					<p class="text-black">
+					<p class="text-black ">
 						<%
 							out.println(rs.getString("subject"));
 						%>
@@ -269,7 +289,7 @@ String authorStudent; %>
 				</div >
 				<br>
 				<div class="d-inline-block">
-					<p class="text-black">name:</p>
+					<p class="text-black font-weight-bold">Teacher Name: </p>
 				</div>
 				<div class="d-inline-block">
 					<p class="text-black">
@@ -366,8 +386,11 @@ String authorStudent; %>
 									<div class="bar"></div>
 								</div>
 								
-								<label>choose file</label>
-								<input type="file" name="file_uploaded" >
+								<input type="file" name="file_uploaded" id="file" onchange="return fileValidation()" hidden="hidden">
+								<!-- --added -->
+								<button type="button" id="custom-button" class="btn btn-outline-secondary"><i class="fa fa-paperclip" aria-hidden="true"></i>  Add</button>
+								<span id="custom-text">No file chosen, yet.</span>
+								<!-- e -->
 								<input type="hidden" name="authorName" value="<%=authorStudent %>">
 								
 							</form>
@@ -847,11 +870,11 @@ String authorStudent; %>
 					
 					
 					<div id ="previous_content" class=" border-muted card mt-4 p-3  "
-						style="border-radius:8px; height: 50vh; margin-bottom:12px;">
+						style="border-radius:8px; height: 30vh; margin-bottom:12px;">
 						<h3 class="card-title">Communicate with your class here</h3>
 
-						<h6 class="card-text">Create and schedule announcements</h6>
-						<h6 class="card-text">Respond to student posts</h6>
+						<h6 class="card-text">Join and see scheduled announcements</h6>
+						<h6 class="card-text">Respond to teacher posts</h6>
 					</div>
 
 
@@ -901,14 +924,61 @@ String authorStudent; %>
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 
 	<!-- clint side manupulation using jquery and js.... -->
 	
+	
 <script type="text/javascript">
+<!-- --added -->
+const realFileBtn = document.getElementById("file");
+const customBtn = document.getElementById("custom-button");
+const customTxt = document.getElementById("custom-text");
+
+customBtn.addEventListener("click", function() {
+  realFileBtn.click();
+});
+
+realFileBtn.addEventListener("change", function() {
+  if (realFileBtn.value) {
+    customTxt.innerHTML = realFileBtn.value.split("\\").pop();
+    	//realFileBtn.value.match(
+  		      ///[\/\\]([\w\d\s\.\-\(\)]+)$/
+  		    //)[1];
+  } else {
+    customTxt.innerHTML = "No file chosen, yet.";
+  }
+});
+
+
+
+function fileValidation(){
+	//alert();
+    var fileInput = document.getElementById('file');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.pdf)$/i;
+    if(!allowedExtensions.exec(filePath)){
+       
+        Swal.fire('Oops...', 'Please upload file having extensions .pdf only.!', 'error');
+        fileInput.value ='';
+        filePath='';
+        return false;
+    }else{
+        	if(fileInput.files[0].size/(1024*1024)>=8){
+        		Swal.fire('Oops...', 'File size must be smaller than 8..!', 'error');
+        		fileInput.value ='';
+                filePath='';
+                return false;
+        	}
+        	else{
+        		return true;
+        	}
+        }
+    }
+<!-- --end -->
 	$(document).ready(function() {
 
-
+		
 
 	//$(".child-comments").hide();
 		//$("a#children").click(function(){

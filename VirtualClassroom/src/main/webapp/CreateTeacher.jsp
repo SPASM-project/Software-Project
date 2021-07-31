@@ -132,6 +132,15 @@
 		display:inline-block;
 		float:none;
 			}
+			@media (min-width: 768px) {
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+  }
+}
+			
+
 	</style>
 
 <title>
@@ -174,17 +183,25 @@ String author;int ii;String title; %>
 	
 		<!-- creation of fixed nav bar -->
 		
-<nav class="navbar navbar-expand-lg navbar-light  bg-white  fixed-top border-bottom"  style="font-family: sans-serif; font-size: 14px; font-weight: 600;">
-  <a class="navbar-brand" href="#">
-  <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
-  <%=classname%>
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top "  style="font-family: sans-serif; font-size: 14px; font-weight: 600;">
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav" >
+  <div class="navbar-header">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+  
+  
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <ul class="nav navbar-nav">
+      <li><a class="navbar-brand" href="#">
+            <i class="fa fa-graduation-cap text-primary" aria-hidden="true"></i>
+        <%=classname%>
+        </a></li>
+  </ul>
+    <ul class="nav navbar-nav navbar-center" >
       <li class="nav-item">
         <a class="nav-link" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>
       </li>
@@ -211,7 +228,9 @@ String author;int ii;String title; %>
       </li>
       
     </ul>
-    
+    <ul class="nav navbar-nav navbar-right ml-auto">
+      <li><a class="btn btn-light" href="StartingPage.jsp?mail=<%=session.getAttribute("mailid")%>"><i class="fa fa-2x fa-arrow-circle-left text-primary" aria-hidden="true"></i></a></li>
+  </ul>
   </div>
 </nav>
 		
@@ -276,7 +295,7 @@ String author;int ii;String title; %>
 
 				<h5 class="text-white">
 					<%
-						out.println(rs.getString("classname"));
+						out.println(rs.getString("subject"));
 					%>
 				</h5>
 
@@ -287,7 +306,7 @@ String author;int ii;String title; %>
 				</p>
 
 				<div class="d-inline-block">
-					<p class="text-white">class code</p>
+					<p class="text-white">Class Code</p>
 				</div>
 
 				<div class="d-inline-block">
@@ -318,7 +337,7 @@ String author;int ii;String title; %>
 			<div class="container bg-white shadow-sm" id="div2"
 				style="display: none;">
 				<div class="d-inline-block">
-					<p class="text-black">subject:</p>
+					<p class="text-black font-weight-bold">Subject:</p>
 				</div>
 				<div class="d-inline-block">
 					<p class="text-black">
@@ -329,7 +348,7 @@ String author;int ii;String title; %>
 				</div >
 				<br>
 				<div class="d-inline-block">
-					<p class="text-black">name:</p>
+					<p class="text-black font-weight-bold">Teacher Name:</p>
 				</div>
 				<div class="d-inline-block">
 					<p class="text-black">
@@ -989,10 +1008,12 @@ customBtn.addEventListener("click", function() {
 
 realFileBtn.addEventListener("change", function() {
   if (realFileBtn.value) {
-    customTxt.innerHTML = realFileBtn.value.match(
-      /[\/\\]([\w\d\s\.\-\(\)]+)$/
-    )[1];
-  } else {
+	  
+	 
+	  
+    customTxt.innerHTML =realFileBtn.value.split("\\").pop();//realFileBtn.value.replace(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+  } 
+  else {
     customTxt.innerHTML = "No file chosen, yet.";
   }
 });

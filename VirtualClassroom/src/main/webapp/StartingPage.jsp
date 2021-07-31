@@ -105,7 +105,7 @@
   		width:50%;
   	}
   
-	.card:hover{
+	.car:hover{
 	cursor: pointer;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0.2, 0.2);"
 	}
@@ -166,15 +166,39 @@ session.setAttribute("mailId", mailid);
 //System.out.println(uss);
 
 %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top car"  style="font-family: sans-serif; font-size: 14px; font-weight: 600;border-radius:0px;border-left: none;border-right: none;">
 
-<!-- html -->
-<div class="container-fluid  bg-white">
-
-<div class="row  card" style="border-radius:0px;border-left: none;border-right: none;" >
-	<div class="col-sm-12">
-		<h1 class="text-left text-muted">e-Ducation</h1>
-		</div>
+  <div class="navbar-header">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 </div>
+  
+  
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <ul class="nav navbar-nav">
+      <li><a class="navbar-brand text-muted" href="#" style="font-size: 25px;">
+        
+      e-Ducation
+        </a></li>
+  </ul>
+ 
+    <ul class="nav navbar-nav navbar-right ml-auto">
+      <li>
+      <form action="Logout" method="post">
+       <button class="btn btn-danger">Logout</button>
+      </form>
+     
+      </li>
+  </ul>
+  </div>
+</nav>
+<!-- html -->
+<div class="container-fluid  bg-white " style="margin-top:83px;">
+
+
 
  <div class="row mt-3">
 	
@@ -182,9 +206,10 @@ session.setAttribute("mailId", mailid);
 		
 																<!-- Modal terms -->
 			
-			<button type="button" class="btn btn-dark text-light shadow-sm" data-toggle="modal" data-target="#staticBackdrop">Create</button>									
+			<button type="button" class="btn btn-dark text-light shadow-sm mr-2" data-toggle="modal" data-target="#staticBackdrop">Create</button>									
 			<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" 
 			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			
  				 <div class="modal-dialog modal-dialog-centered ">
     				<div class="modal-content m-2 ">
       
@@ -286,8 +311,67 @@ session.setAttribute("mailId", mailid);
 				</div>
 																	<!-- end -->
 																	
-			<a href="JoinClass.jsp?mail=<%=mailid%>" class="btn btn-dark text-light shadow-sm">Join</a>
+			<!--<a href="JoinClass.jsp?mail=" class="btn btn-dark text-light shadow-sm">Join</a>
+			 join classroom modal -->
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-success text-light shadow-sm" data-toggle="modal" data-target="#exampleModalCenter5">
+			 Join
+			</button>
 			
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModalCenter5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			    
+			     <form action="ServletStudent" name="joinclass" method="post">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLongTitle">Join Classroom</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      
+						
+					<label class="text-muted float-left" for="exampleInputPassword1">Contact No</label>
+						<div class="form-group">
+				    		
+				    		<input type="text" name="contactno" class="form-control" id="exampleInputPassword1">
+				  		</div>
+				  	
+				  		
+					
+						<input type="hidden" value=<%=mailid %> name="mailid">
+						<input type="hidden" name="sname" value="<%=authorName%>">
+						
+						<p class="text-dark float-left">ask you teacher for the class code,then enter it here</p>
+						<label  class="text-muted float-left" for="exampleInputPassword2">Class Code</label>
+						<div class="form-group">
+				    		
+				    		<input type="text" name="classcode" class="form-control" id="exampleInputPassword2">
+				  		</div>
+						
+						
+					
+						
+						
+						<p class="text-dark float-left">To sign in with a class code</p>
+						<ul class="float-left">
+						  <li class="text-dark float-left">&nbsp  Use an authorized account</li>
+						  <li class="text-dark float-left">Use a class code with 5-7 letters or numbers,and no <span class="float-left ml-2">spaces or symbols</span></span></li>
+						</ul>
+						<p class="text-dark  float-left">If you have trouble joining the class,go to Help Center<span class="float-left ml-4">artical</span></span></p>
+				 
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			       <button type="submit" class="btn btn-primary">Join</button>	
+			      </div>
+			      </form>
+			    </div>
+			  </div>
+			</div>
+			<!-- /join classroom modal -->
 		
 	</div>
 </div>
@@ -333,7 +417,22 @@ session.setAttribute("mailId", mailid);
 
 					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; "><!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); -->
 						<div class="card-header bg-primary " style="height:95px; border-radius:10px 10px 0px 0px;">
-							<a class=" float-right text-light" aria-hidden="true" style="opacity:95%;"><div class="fa fa-ellipsis-v"></div></a>
+							
+								<!-- dropdown for delete -->
+								<form action="Delete" method="post">
+								<div class="dropdown">
+								  <a class="float-right text-light " href="#"  id="dropdownMenuLink<%out.print(rs.getString("classcode"));%>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								   <i class="fa fa-ellipsis-v"></i>
+								  </a>
+								  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink<%out.print(rs.getString("classcode"));%>">
+								    <button class="dropdown-item" id="d<%out.print(rs.getString("classcode"));%>">Delete</button>
+								  </div>
+								</div>
+								<input type="hidden" value="<%out.print(rs.getString("classcode"));%>" name="delete">
+								</form>
+								
+								<!-- dropdown for delete -->
+								
 								<a class="text-light" href="CreateTeacher.jsp?code=<%out.print(rs.getString("classcode"));%>&classname=<%out.print(rs.getString("classname"));%>&author=<%=authorName%>">
 							
 									<h3 class="card-title text-truncate">
@@ -439,9 +538,22 @@ session.setAttribute("mailId", mailid);
 
 					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; "><!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); -->
 						<div class="card-header bg-info " style="height:95px; border-radius:10px 10px 0px 0px;">
-							<a class=" float-right text-light" aria-hidden="true" style="opacity:95%;"><div class="fa fa-ellipsis-v"></div></a>
-								<a class="text-light" href="CreateStudent.jsp?code=<%out.print(rs1.getString("classcode"));%>&classname=<%out.print(rs1.getString("classname"));%>&author=<%=authorName%>&mailId=<%=mailid%>">
-							
+							<!-- dropdown for delete -->
+								<form action="Delete" method="post">
+								<div class="dropdown">
+								  <a class="float-right text-light " href="#"  id="dropdownMenuLink<%out.print(rs1.getString("classcode"));%>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								   <i class="fa fa-ellipsis-v"></i>
+								  </a>
+								
+								  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink<%out.print(rs1.getString("classcode"));%>">
+								    <button class="dropdown-item" id="d<%out.print(rs1.getString("classcode"));%>">Delete</button>
+								  </div>
+								</div>
+								<input type="hidden" value="<%out.print(rs1.getString("classcode"));%>" name="delete">
+								</form>
+							<!-- dropdown for delete -->
+								
+									<a class="text-light" href="CreateStudent.jsp?code=<%out.print(rs1.getString("classcode"));%>&classname=<%out.print(rs1.getString("classname"));%>&author=<%=authorName%>&mailId=<%=mailid%>">	
 									<h3 class="card-title ">
 										<%
 											out.println(rs1.getString("classname"));
