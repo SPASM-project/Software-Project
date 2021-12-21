@@ -154,7 +154,7 @@
 
 <!-- declaration.... -->
 <%!int i; String com;String dt; 
-String author;int ii;String title; %>
+String author;int ii;String title;String points; %>
 	<!-- get session -->
 	<%
 		if (request.getParameter("code") == null) {
@@ -753,12 +753,13 @@ String author;int ii;String title; %>
 				while (rs3.next()) {
 		%>		<%String id=rs3.getString("id") ;
 		title=rs3.getString("title");
+		points=rs3.getString("points");
 		//if(rs.getString("topic")!=null)
 		//{
 		%>
 		
 				<div class="card mt-3 " style="border-radius:8px;overflow:hidden;">
-				<a href="TacherAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>&title=<%=title %>" class="text-decoration-none" >
+				<a href="TacherAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>&title=<%=title %>&point=<%=points%>" class="text-decoration-none" >
 					<div class="card-header  bg bg-white p-3 " style="height:73px;">
     				
       					

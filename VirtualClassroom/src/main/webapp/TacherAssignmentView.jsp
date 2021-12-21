@@ -48,9 +48,10 @@ position: sticky;
 
 <!-- declaration.... -->
 <%!//int i; String com;String dt;%>
-<%!String id;String auth;String author;String title;int totalStudent;//int i; String com;String dt;%>
+<%!String id;String auth;String author;String title;int totalStudent;String points;//int i; String com;String dt;%>
 		<%id=request.getParameter("id") ;
 		title=request.getParameter("title");
+		points=request.getParameter("point");
 		auth=request.getParameter("author");
 		%>
 		<%
@@ -170,7 +171,7 @@ position: sticky;
 	
 <form  method="post">
 <!-- second container-fluid --> 
-	<div class="container-fluid" style="margin-top:83px;">
+<!-- 	<div class="container-fluid" style="margin-top:83px;">
 		<div class="row border-bottom pb-3">
 			<div class="col-1 offset-1 ">
 			
@@ -186,16 +187,16 @@ position: sticky;
 			</div>
 			
 		</div>
-	</div>
+	</div> -->
 <!-- end of second container-fluid -->
 
 <!-- third container-fluid  -->
 <div class="container-fluid">
-	<div class="row">
+	<div class="row" style="margin-top:8vh;">
 	<!-- 1st col -->
 	
 	
-	<div class="col-lg-3 col-md-12 col-sm-12 col-12 scrollable " style=" ">
+	<div class="col-lg-3 col-md-12 col-sm-12 col-12 scrollable " style="height:92vh;">
 	
 	
 	
@@ -234,9 +235,10 @@ position: sticky;
 		%>
 
 		<div class="row mt-5 ">
+		<%if(r.getRow()>0){%>
  <div class="col-8 p-3 text-info">Missing</div>
 		 
-		<%
+		<%}
 			while (r.next()) {
 					
 		%>
@@ -309,8 +311,9 @@ position: sticky;
 		%>
 
 		<div class="row mt-2 mb-2">
+		<%if(r9.getRow()>0){%>
  <div class="col-8 p-3 text-info">Assigned</div>
-		<%
+		<%}
 			while (r9.next()) {
 				
 		%>
@@ -372,7 +375,7 @@ position: sticky;
 	
 	
 	<!-- 2nd col -->
-		<div class="col-lg-9 col-md-12 col-sm-12 col-12 scrollable ">
+		<div class="col-lg-9 col-md-12 col-sm-12 col-12 scrollable " style="height:92vh;" >
 			
 		
 	        					<!-- count assigned with database -->
@@ -404,7 +407,13 @@ position: sticky;
 		<%} %>
 		
 		<div class="row" style="font-size:27px;font-weight: 550;">
-			<p class="ml-3"><%=title %></p>
+		<div class="col">
+		<%if(points!=null){ %>
+			<div class="ml-3 text-success"><u>Total Marks-<%=points%></u></div>
+		<%} %>
+			<div class="ml-3"><%=title %></div>
+		</div>
+			
 		</div>
 		<% 
 		

@@ -15,6 +15,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style type="text/css">
          @import url('https://fonts.googleapis.com/css?family=Mukta');
  :root{}
@@ -166,10 +167,14 @@ if (request.getParameter("code") == null) {
   </nav>
 </div>
    
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas">
+    	
+    </canvas>
 </div>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
@@ -201,8 +206,10 @@ realFileBtn.addEventListener("change", function() {
 <!--end-->
 
 
-
-
+//const imgs = document.querySelector("#imgs");
+//imgs.width = 400;
+//imgs.height =400;
+//let con = imgs.getContext("2d");
 
 const reader=new FileReader();
 const img=new Image();
@@ -322,9 +329,11 @@ const uploadImage = (e) => {
 			 context.drawImage(img, 100	, 100);
 		 };
 		 img.src =reader.result;
+		 //img.draggable();
 	};
 	reader.readAsDataURL(e.target.files[0]);
 	};
+	
 document.getElementById("uploader").addEventListener("change", uploadImage);
 
 

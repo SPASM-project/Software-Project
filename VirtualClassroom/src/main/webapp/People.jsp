@@ -234,6 +234,7 @@
 					
 					<div class=" p-2 mb-1 " style="margin-left:37px;">	
 						<% 	out.println(r.getString("sname"));%>
+					
 					</div>
 					
 				</div>
